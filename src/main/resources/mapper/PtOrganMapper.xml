@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simo.meitan.mapper.PtOrganMapper">
+  <resultMap id="BaseResultMap" type="com.simo.meitan.model.PtOrgan">
+    <id column="organ_uuid" jdbcType="VARCHAR" property="organUuid" />
+    <result column="organ_code" jdbcType="VARCHAR" property="organCode" />
+    <result column="organ_name" jdbcType="VARCHAR" property="organName" />
+    <result column="organ_type" jdbcType="VARCHAR" property="organType" />
+    <result column="in_use" jdbcType="BOOLEAN" property="inUse" />
+    <result column="parent_uuid" jdbcType="VARCHAR" property="parentUuid" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="modifierid" jdbcType="VARCHAR" property="modifierid" />
+    <result column="modtime" jdbcType="TIMESTAMP" property="modtime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="account_code" jdbcType="VARCHAR" property="accountCode" />
+    <result column="shortname" jdbcType="VARCHAR" property="shortname" />
+    <result column="is_parent" jdbcType="BOOLEAN" property="isParent" />
+    <collection property="children" ofType="com.simo.meitan.model.PtOrgan" select="com.simo.meitan.mapper.PtOrganMapper.selectPtOrganTressByParentUUID" column="organ_uuid">
+    </collection>
+  </resultMap>
+
+  <resultMap id="BaseResultMapWithOutChildren" type="com.simo.meitan.model.PtOrgan">
+    <id column="organ_uuid" jdbcType="VARCHAR" property="organUuid" />
+    <result column="organ_code" jdbcType="VARCHAR" property="organCode" />
+    <result column="organ_name" jdbcType="VARCHAR" property="organName" />
+    <result column="organ_type" jdbcType="VARCHAR" property="organType" />
+    <result column="in_use" jdbcType="BOOLEAN" property="inUse" />
+    <result column="parent_uuid" jdbcType="VARCHAR" property="parentUuid" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="modifierid" jdbcType="VARCHAR" property="modifierid" />
+    <result column="modtime" jdbcType="TIMESTAMP" property="modtime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="account_code" jdbcType="VARCHAR" property="accountCode" />
+    <result column="shortname" jdbcType="VARCHAR" property="shortname" />
+    <result column="is_parent" jdbcType="BOOLEAN" property="isParent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    organ_uuid, organ_code, organ_name, organ_type, in_use, parent_uuid, `status`, modifierid, 
+    modtime, description, account_code, shortname, is_parent
+  </sql>
+  <select id="selectPtOrganTressByParentUUID" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from pt_organ
+    where parent_uuid = #{organUuid,jdbcType=VARCHAR}
+  </select>
+  <parameterMap type="map" id="delVO">
+    <parameter property="organUUID" jdbcType="VARCHAR" mode="IN"/>
+    <parameter property="recode" jdbcType="INTEGER" mode="OUT"/>
+  </parameterMap>
+  <select id="deleteOrgan" statementType="CALLABLE" parameterMap="delVO" >
+    call deleteOrgan(?,?)
+  </select>
+
+  <insert id="insert" parameterType="com.simo.meitan.model.PtOrgan">
+    <!--@mbg.generated-->
+    insert into pt_organ (organ_uuid, organ_code, organ_name, 
+      organ_type, in_use, parent_uuid, 
+      `status`, modifierid, modtime, 
+      description, account_code, shortname, 
+      is_parent)
+    values (#{organUuid,jdbcType=VARCHAR}, #{organCode,jdbcType=VARCHAR}, #{organName,jdbcType=VARCHAR}, 
+      #{organType,jdbcType=VARCHAR}, #{inUse,jdbcType=BOOLEAN}, #{parentUuid,jdbcType=VARCHAR},
+      #{status,jdbcType=CHAR}, #{modifierid,jdbcType=VARCHAR}, #{modtime,jdbcType=TIMESTAMP}, 
+      #{description,jdbcType=VARCHAR}, #{accountCode,jdbcType=VARCHAR}, #{shortname,jdbcType=VARCHAR}, 
+      #{isParent,jdbcType=BOOLEAN})
+  </insert>
+  <insert id="insertSelective" parameterType="com.simo.meitan.model.PtOrgan">
+    <!--@mbg.generated-->
+    insert into pt_organ
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="organUuid != null and organUuid != ''">
+        organ_uuid,
+      </if>
+      <if test="organCode != null and organCode != ''">
+        organ_code,
+      </if>
+      <if test="organName != null and organName != ''">
+        organ_name,
+      </if>
+      <if test="organType != null and organType != ''">
+        organ_type,
+      </if>
+      <if test="inUse != null ">
+        in_use,
+      </if>
+      <if test="parentUuid != null and parentUuid != ''">
+        parent_uuid,
+      </if>
+      <if test="status != null and status != ''">
+        `status`,
+      </if>
+      <if test="modifierid != null and modifierid != ''">
+        modifierid,
+      </if>
+      <if test="modtime != null">
+        modtime,
+      </if>
+      <if test="description != null and description != ''">
+        description,
+      </if>
+      <if test="accountCode != null and accountCode != ''">
+        account_code,
+      </if>
+      <if test="shortname != null and shortname != ''">
+        shortname,
+      </if>
+      <if test="isParent != null">
+        is_parent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="organUuid != null and organUuid != ''">
+        #{organUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="organCode != null and organCode != ''">
+        #{organCode,jdbcType=VARCHAR},
+      </if>
+      <if test="organName != null and organName != ''">
+        #{organName,jdbcType=VARCHAR},
+      </if>
+      <if test="organType != null and organType != ''">
+        #{organType,jdbcType=VARCHAR},
+      </if>
+      <if test="inUse != null ">
+        #{inUse,jdbcType=BOOLEAN},
+      </if>
+      <if test="parentUuid != null and parentUuid != ''">
+        #{parentUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null and status != ''">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="modifierid != null and modifierid != ''">
+        #{modifierid,jdbcType=VARCHAR},
+      </if>
+      <if test="modtime != null">
+        #{modtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null and description != ''">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCode != null and accountCode != ''">
+        #{accountCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shortname != null and shortname != ''">
+        #{shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="isParent != null">
+        #{isParent,jdbcType=BOOLEAN},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.simo.meitan.model.PtOrgan">
+    <!--@mbg.generated-->
+    update pt_organ
+    <set>
+      <if test="organCode != null and organCode != ''">
+        organ_code = #{organCode,jdbcType=VARCHAR},
+      </if>
+      <if test="organName != null and organName != ''">
+        organ_name = #{organName,jdbcType=VARCHAR},
+      </if>
+      <if test="organType != null and organType != ''">
+        organ_type = #{organType,jdbcType=VARCHAR},
+      </if>
+      <if test="inUse != null ">
+        in_use = #{inUse,jdbcType=BOOLEAN},
+      </if>
+      <if test="parentUuid != null and parentUuid != ''">
+        parent_uuid = #{parentUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null and status != ''">
+        `status` = #{status,jdbcType=CHAR},
+      </if>
+      <if test="modifierid != null and modifierid != ''">
+        modifierid = #{modifierid,jdbcType=VARCHAR},
+      </if>
+      <if test="modtime != null">
+        modtime = #{modtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null and description != ''">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCode != null and accountCode != ''">
+        account_code = #{accountCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shortname != null and shortname != ''">
+        shortname = #{shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="isParent != null">
+        is_parent = #{isParent,jdbcType=BOOLEAN},
+      </if>
+    </set>
+    where organ_uuid = #{organUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.simo.meitan.model.PtOrgan">
+    <!--@mbg.generated-->
+    update pt_organ
+    set organ_code = #{organCode,jdbcType=VARCHAR},
+      organ_name = #{organName,jdbcType=VARCHAR},
+      organ_type = #{organType,jdbcType=VARCHAR},
+      in_use = #{inUse,jdbcType=BOOLEAN},
+      parent_uuid = #{parentUuid,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=CHAR},
+      modifierid = #{modifierid,jdbcType=VARCHAR},
+      modtime = #{modtime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      account_code = #{accountCode,jdbcType=VARCHAR},
+      shortname = #{shortname,jdbcType=VARCHAR},
+      is_parent = #{isParent,jdbcType=BOOLEAN}
+    where organ_uuid = #{organUuid,jdbcType=VARCHAR}
+  </update>
+
+<!--auto generated by MybatisCodeHelper on 2020-07-13-->
+  <select id="selectAllByParentUuid" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from pt_organ
+    where parent_uuid=#{parentUuid,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="selectOneByOrganUuid" resultMap="BaseResultMapWithOutChildren">
+    select
+    <include refid="Base_Column_List"/>
+    from pt_organ
+    where organ_uuid=#{organUuid,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="selectAllByOrganNameLikeAndAccountCodeLikeAndInUseOrderByModtimeAsc" resultMap="BaseResultMapWithOutChildren">
+    select
+    <include refid="Base_Column_List"/>
+    from pt_organ
+    <where>
+      <if test="likeOrganName != null and likeOrganName != ''">
+        organ_name like concat('%',#{likeOrganName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="likeAccountCode != null and likeAccountCode != ''">
+        and account_code like concat('%',#{likeAccountCode,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="inUse != null">
+        and in_use=#{inUse,jdbcType=BOOLEAN}
+      </if>
+    </where>
+     order by modtime asc
+  </select>
+
+
+  <select id="selectAllByOrganNameLikeAndAccountCodeLikeAndInUseOrderByModtimeDesc" resultMap="BaseResultMapWithOutChildren">
+    select
+    <include refid="Base_Column_List"/>
+    from pt_organ
+    <where>
+      <if test="likeOrganName != null and likeOrganName != ''">
+        organ_name like concat('%',#{likeOrganName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="likeAccountCode != null and likeAccountCode != ''">
+        and account_code like concat('%',#{likeAccountCode,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="inUse != null">
+        and in_use=#{inUse,jdbcType=BOOLEAN}
+      </if>
+    </where>
+    order by modtime desc
+  </select>
+</mapper>

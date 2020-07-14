@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simo.meitan.mapper.BookMapper">
+  <resultMap id="BaseResultMap" type="com.simo.meitan.model.Book">
+    <!--@mbg.generated-->
+    <!--@Table book-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="fileName" jdbcType="VARCHAR" property="filename" />
+    <result column="cover" jdbcType="VARCHAR" property="cover" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="publisher" jdbcType="VARCHAR" property="publisher" />
+    <result column="bookId" jdbcType="VARCHAR" property="bookid" />
+    <result column="category" jdbcType="INTEGER" property="category" />
+    <result column="categoryText" jdbcType="VARCHAR" property="categorytext" />
+    <result column="language" jdbcType="VARCHAR" property="language" />
+    <result column="rootFile" jdbcType="VARCHAR" property="rootfile" />
+    <result column="originalName" jdbcType="VARCHAR" property="originalname" />
+    <result column="filePath" jdbcType="VARCHAR" property="filepath" />
+    <result column="unzipPath" jdbcType="VARCHAR" property="unzippath" />
+    <result column="coverPath" jdbcType="VARCHAR" property="coverpath" />
+    <result column="createUser" jdbcType="VARCHAR" property="createuser" />
+    <result column="createDt" jdbcType="BIGINT" property="createdt" />
+    <result column="updateDt" jdbcType="BIGINT" property="updatedt" />
+    <result column="updateType" jdbcType="INTEGER" property="updatetype" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, fileName, cover, title, author, publisher, bookId, category, categoryText, `language`, 
+    rootFile, originalName, filePath, unzipPath, coverPath, `createUser`, createDt, updateDt, 
+    updateType
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from book
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from book
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.simo.meitan.model.Book" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into book (fileName, cover, title, 
+      author, publisher, bookId, 
+      category, categoryText, `language`, 
+      rootFile, originalName, filePath, 
+      unzipPath, coverPath, `createUser`, 
+      createDt, updateDt, updateType
+      )
+    values (#{filename,jdbcType=VARCHAR}, #{cover,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{author,jdbcType=VARCHAR}, #{publisher,jdbcType=VARCHAR}, #{bookid,jdbcType=VARCHAR}, 
+      #{category,jdbcType=INTEGER}, #{categorytext,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, 
+      #{rootfile,jdbcType=VARCHAR}, #{originalname,jdbcType=VARCHAR}, #{filepath,jdbcType=VARCHAR}, 
+      #{unzippath,jdbcType=VARCHAR}, #{coverpath,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
+      #{createdt,jdbcType=BIGINT}, #{updatedt,jdbcType=BIGINT}, #{updatetype,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.simo.meitan.model.Book" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into book
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="filename != null">
+        fileName,
+      </if>
+      <if test="cover != null">
+        cover,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="publisher != null">
+        publisher,
+      </if>
+      <if test="bookid != null">
+        bookId,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="categorytext != null">
+        categoryText,
+      </if>
+      <if test="language != null">
+        `language`,
+      </if>
+      <if test="rootfile != null">
+        rootFile,
+      </if>
+      <if test="originalname != null">
+        originalName,
+      </if>
+      <if test="filepath != null">
+        filePath,
+      </if>
+      <if test="unzippath != null">
+        unzipPath,
+      </if>
+      <if test="coverpath != null">
+        coverPath,
+      </if>
+      <if test="createuser != null">
+        `createUser`,
+      </if>
+      <if test="createdt != null">
+        createDt,
+      </if>
+      <if test="updatedt != null">
+        updateDt,
+      </if>
+      <if test="updatetype != null">
+        updateType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="filename != null">
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null">
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="publisher != null">
+        #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="bookid != null">
+        #{bookid,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=INTEGER},
+      </if>
+      <if test="categorytext != null">
+        #{categorytext,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null">
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="rootfile != null">
+        #{rootfile,jdbcType=VARCHAR},
+      </if>
+      <if test="originalname != null">
+        #{originalname,jdbcType=VARCHAR},
+      </if>
+      <if test="filepath != null">
+        #{filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="unzippath != null">
+        #{unzippath,jdbcType=VARCHAR},
+      </if>
+      <if test="coverpath != null">
+        #{coverpath,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null">
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdt != null">
+        #{createdt,jdbcType=BIGINT},
+      </if>
+      <if test="updatedt != null">
+        #{updatedt,jdbcType=BIGINT},
+      </if>
+      <if test="updatetype != null">
+        #{updatetype,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.simo.meitan.model.Book">
+    <!--@mbg.generated-->
+    update book
+    <set>
+      <if test="filename != null">
+        fileName = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null">
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="publisher != null">
+        publisher = #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="bookid != null">
+        bookId = #{bookid,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=INTEGER},
+      </if>
+      <if test="categorytext != null">
+        categoryText = #{categorytext,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null">
+        `language` = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="rootfile != null">
+        rootFile = #{rootfile,jdbcType=VARCHAR},
+      </if>
+      <if test="originalname != null">
+        originalName = #{originalname,jdbcType=VARCHAR},
+      </if>
+      <if test="filepath != null">
+        filePath = #{filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="unzippath != null">
+        unzipPath = #{unzippath,jdbcType=VARCHAR},
+      </if>
+      <if test="coverpath != null">
+        coverPath = #{coverpath,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null">
+        `createUser` = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdt != null">
+        createDt = #{createdt,jdbcType=BIGINT},
+      </if>
+      <if test="updatedt != null">
+        updateDt = #{updatedt,jdbcType=BIGINT},
+      </if>
+      <if test="updatetype != null">
+        updateType = #{updatetype,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.simo.meitan.model.Book">
+    <!--@mbg.generated-->
+    update book
+    set fileName = #{filename,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      publisher = #{publisher,jdbcType=VARCHAR},
+      bookId = #{bookid,jdbcType=VARCHAR},
+      category = #{category,jdbcType=INTEGER},
+      categoryText = #{categorytext,jdbcType=VARCHAR},
+      `language` = #{language,jdbcType=VARCHAR},
+      rootFile = #{rootfile,jdbcType=VARCHAR},
+      originalName = #{originalname,jdbcType=VARCHAR},
+      filePath = #{filepath,jdbcType=VARCHAR},
+      unzipPath = #{unzippath,jdbcType=VARCHAR},
+      coverPath = #{coverpath,jdbcType=VARCHAR},
+      `createUser` = #{createuser,jdbcType=VARCHAR},
+      createDt = #{createdt,jdbcType=BIGINT},
+      updateDt = #{updatedt,jdbcType=BIGINT},
+      updateType = #{updatetype,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+<!--auto generated by MybatisCodeHelper on 2020-07-07-->
+  <select id="selectAllByTitleLikeAndAuthorLikeAndCategory" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from book
+    <where>
+      <if test="likeTitle!=null ">
+        title like concat('%',#{likeTitle,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="likeAuthor!=null">
+       and author like concat('%',#{likeAuthor,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="category != null">
+        and category = #{category,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+<!--auto generated by MybatisCodeHelper on 2020-07-08-->
+  <select id="selectAllByTitleLikeAndAuthorLikeAndCategoryOrderByIdDesc" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from book
+    <where>
+      <if test="likeTitle!=null ">
+        title like concat('%',#{likeTitle,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="likeAuthor!=null">
+        and author like concat('%',#{likeAuthor,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="category != null">
+        and category = #{category,jdbcType=INTEGER}
+      </if>
+    </where>
+    order by id desc
+  </select>
+
+<!--auto generated by MybatisCodeHelper on 2020-07-08-->
+  <select id="selectAllByTitleLikeAndAuthorLikeAndCategoryOrderById" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from book
+    <where>
+      <if test="likeTitle!=null ">
+        title like concat('%',#{likeTitle,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="likeAuthor!=null">
+        and author like concat('%',#{likeAuthor,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="category != null">
+        and category = #{category,jdbcType=INTEGER}
+      </if>
+    </where>
+    order by id asc
+  </select>
+</mapper>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simo.meitan.mapper.PtResMapper">
+  <resultMap id="BaseResultMap" type="com.simo.meitan.model.PtRes">
+    <!--@mbg.generated-->
+    <!--@Table pt_res-->
+    <id column="res_uuid" jdbcType="VARCHAR" property="resUuid" />
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="res_id" jdbcType="VARCHAR" property="resId" />
+    <result column="res_name" jdbcType="VARCHAR" property="resName" />
+    <result column="res_url" jdbcType="VARCHAR" property="resUrl" />
+    <result column="res_type" jdbcType="VARCHAR" property="resType" />
+    <result column="parent_uuid" jdbcType="VARCHAR" property="parentUuid" />
+    <result column="order" jdbcType="VARCHAR" property="order" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    res_uuid, id, res_id, res_name, res_url, res_type, parent_uuid, `order`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from pt_res
+    where res_uuid = #{resUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from pt_res
+    where res_uuid = #{resUuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.simo.meitan.model.PtRes">
+    <!--@mbg.generated-->
+    insert into pt_res (res_uuid, id, res_id, 
+      res_name, res_url, res_type, 
+      parent_uuid, `order`)
+    values (#{resUuid,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{resId,jdbcType=VARCHAR}, 
+      #{resName,jdbcType=VARCHAR}, #{resUrl,jdbcType=VARCHAR}, #{resType,jdbcType=VARCHAR}, 
+      #{parentUuid,jdbcType=VARCHAR}, #{order,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.simo.meitan.model.PtRes">
+    <!--@mbg.generated-->
+    insert into pt_res
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="resUuid != null and resUuid != ''">
+        res_uuid,
+      </if>
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="resId != null and resId != ''">
+        res_id,
+      </if>
+      <if test="resName != null and resName != ''">
+        res_name,
+      </if>
+      <if test="resUrl != null and resUrl != ''">
+        res_url,
+      </if>
+      <if test="resType != null and resType != ''">
+        res_type,
+      </if>
+      <if test="parentUuid != null and parentUuid != ''">
+        parent_uuid,
+      </if>
+      <if test="order != null and order != ''">
+        `order`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="resUuid != null and resUuid != ''">
+        #{resUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="resId != null and resId != ''">
+        #{resId,jdbcType=VARCHAR},
+      </if>
+      <if test="resName != null and resName != ''">
+        #{resName,jdbcType=VARCHAR},
+      </if>
+      <if test="resUrl != null and resUrl != ''">
+        #{resUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="resType != null and resType != ''">
+        #{resType,jdbcType=VARCHAR},
+      </if>
+      <if test="parentUuid != null and parentUuid != ''">
+        #{parentUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null and order != ''">
+        #{order,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.simo.meitan.model.PtRes">
+    <!--@mbg.generated-->
+    update pt_res
+    <set>
+      <if test="id != null and id != ''">
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="resId != null and resId != ''">
+        res_id = #{resId,jdbcType=VARCHAR},
+      </if>
+      <if test="resName != null and resName != ''">
+        res_name = #{resName,jdbcType=VARCHAR},
+      </if>
+      <if test="resUrl != null and resUrl != ''">
+        res_url = #{resUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="resType != null and resType != ''">
+        res_type = #{resType,jdbcType=VARCHAR},
+      </if>
+      <if test="parentUuid != null and parentUuid != ''">
+        parent_uuid = #{parentUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null and order != ''">
+        `order` = #{order,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where res_uuid = #{resUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.simo.meitan.model.PtRes">
+    <!--@mbg.generated-->
+    update pt_res
+    set id = #{id,jdbcType=VARCHAR},
+      res_id = #{resId,jdbcType=VARCHAR},
+      res_name = #{resName,jdbcType=VARCHAR},
+      res_url = #{resUrl,jdbcType=VARCHAR},
+      res_type = #{resType,jdbcType=VARCHAR},
+      parent_uuid = #{parentUuid,jdbcType=VARCHAR},
+      `order` = #{order,jdbcType=VARCHAR}
+    where res_uuid = #{resUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>
