@@ -3,6 +3,8 @@ package com.simo.meitan.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
     * 资源表
     */
@@ -27,4 +29,6 @@ public class PtRes {
     private String parentUuid;
 
     private String order;
+
+    private List<PtRes> children;
 }

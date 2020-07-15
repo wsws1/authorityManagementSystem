@@ -37,9 +37,6 @@ public class PtOrganServiceImpl implements PtOrganService {
         if (feather==null){
             return 0;
         }
-        feather.setIsParent(true);
-        ptOrganMapper.updateByPrimaryKeySelective(feather);
-
         //step2 插入子组织
         record.setOrganUuid(UUIDUtil.getUUID());
         record.setIsParent(false);
