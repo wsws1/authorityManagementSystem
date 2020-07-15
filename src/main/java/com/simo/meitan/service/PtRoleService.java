@@ -27,4 +27,7 @@ public interface PtRoleService{
             Integer size);
 
 
+
+	List<PtRole> selectall();
+
 }

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simo.meitan.mapper.PtDutyMapper">
+  <resultMap id="BaseResultMap" type="com.simo.meitan.model.PtDuty">
+    <!--@mbg.generated-->
+    <!--@Table pt_duty-->
+    <id column="dutyid" jdbcType="VARCHAR" property="dutyid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="organ_uuid" jdbcType="VARCHAR" property="organUuid" />
+    <result column="role_uuid" jdbcType="VARCHAR" property="roleUuid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    dutyid, `name`, organ_uuid, role_uuid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from pt_duty
+    where dutyid = #{dutyid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from pt_duty
+    where dutyid = #{dutyid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.simo.meitan.model.PtDuty">
+    <!--@mbg.generated-->
+    insert into pt_duty (dutyid, `name`, organ_uuid, 
+      role_uuid)
+    values (#{dutyid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{organUuid,jdbcType=VARCHAR}, 
+      #{roleUuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.simo.meitan.model.PtDuty">
+    <!--@mbg.generated-->
+    insert into pt_duty
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dutyid != null and dutyid != ''">
+        dutyid,
+      </if>
+      <if test="name != null and name != ''">
+        `name`,
+      </if>
+      <if test="organUuid != null and organUuid != ''">
+        organ_uuid,
+      </if>
+      <if test="roleUuid != null and roleUuid != ''">
+        role_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dutyid != null and dutyid != ''">
+        #{dutyid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="organUuid != null and organUuid != ''">
+        #{organUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="roleUuid != null and roleUuid != ''">
+        #{roleUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.simo.meitan.model.PtDuty">
+    <!--@mbg.generated-->
+    update pt_duty
+    <set>
+      <if test="name != null and name != ''">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="organUuid != null and organUuid != ''">
+        organ_uuid = #{organUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="roleUuid != null and roleUuid != ''">
+        role_uuid = #{roleUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dutyid = #{dutyid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.simo.meitan.model.PtDuty">
+    <!--@mbg.generated-->
+    update pt_duty
+    set `name` = #{name,jdbcType=VARCHAR},
+      organ_uuid = #{organUuid,jdbcType=VARCHAR},
+      role_uuid = #{roleUuid,jdbcType=VARCHAR}
+    where dutyid = #{dutyid,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="selectAllByNameLikeAndOrganUuidLikeAndRoleUuidLike" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pt_duty
+        <where>
+          <if test="likeName != null and likeName != ''">
+            `name` like concat('%',#{likeName,jdbcType=VARCHAR},'%')
+          </if>
+          <if test="likeOrganUuid != null and likeOrganUuid != ''">
+            and organ_uuid like concat('%',#{likeOrganUuid,jdbcType=VARCHAR},'%')
+          </if>
+          <if test="likeRoleUuid != null and likeRoleUuid != ''">
+            and role_uuid like concat('%',#{likeRoleUuid,jdbcType=VARCHAR},'%')
+          </if>
+        </where>
+    </select>
+</mapper>

@@ -20,6 +20,10 @@ public interface PtRoleMapper {
 
     List<PtRole> selectAllByRoleNameLikeAndRoleIdLike(@Param("likeRoleName")String likeRoleName,@Param("likeRoleId")String likeRoleId);
 
+    List<PtRole> selectall();
+
+
+
 
 
 }

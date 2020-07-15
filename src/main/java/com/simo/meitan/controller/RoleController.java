@@ -90,6 +90,10 @@ public class RoleController {
         return RestResponse.succuess(pageInfo," 角色列表查询成功");
 
     }
+    @GetMapping("/listall")
+    public RestResponse getallRole(){
+        return RestResponse.succuess(ptRoleService.selectall());
+    }
     @GetMapping("/get")
     public RestResponse getOrgan(@RequestParam("roleId") String roleId){
         if(!StringUtils.isEmpty(roleId)){

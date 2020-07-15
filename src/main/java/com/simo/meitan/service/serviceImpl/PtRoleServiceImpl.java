@@ -67,6 +67,14 @@ public class PtRoleServiceImpl implements PtRoleService{
         return new PageInfo<>(ptRoleList);
     }
 
+	@Override
+	public List<PtRole> selectall(){
+		 return ptRoleMapper.selectall();
+	}
+
+
+
+
 
 
 }
