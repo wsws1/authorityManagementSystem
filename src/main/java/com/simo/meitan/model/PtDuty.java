@@ -25,7 +25,17 @@ public class PtDuty {
     private String organUuid;
 
     /**
+     * 组织名称
+     */
+    private String organName;
+
+    /**
     * 角色ID
     */
     private String roleUuid;
+
+    /**
+     * 角色名称
+     */
+    private String roleName;
 }

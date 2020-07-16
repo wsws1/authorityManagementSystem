@@ -1,4 +1,5 @@
 package com.simo.meitan.service;
+import java.util.List;
 
 import com.github.pagehelper.PageInfo;
 import com.simo.meitan.model.PtDuty;
@@ -26,5 +27,10 @@ public interface PtDutyService{
             String likeRoleUuid,
             Integer page,
             Integer size);
+
+
+
+	List<PtDuty> selectAllByOrganUuid(String organUuid);
+
 
 }

@@ -33,8 +33,8 @@ public class PtDutyServiceImpl implements PtDutyService{
     }
 
     @Override
-    public PtDuty selectByPrimaryKey(String dutyid) {
-        return ptDutyMapper.selectByPrimaryKey(dutyid);
+    public PtDuty selectByPrimaryKey(String userId) {
+        return ptDutyMapper.selectByPrimaryKey(userId);
     }
 
     @Override
@@ -61,4 +61,12 @@ public class PtDutyServiceImpl implements PtDutyService{
         );
         return new PageInfo<>(ptDutyList);
     }
+
+	@Override
+	public List<PtDuty> selectAllByOrganUuid(String organUuid){
+		 return ptDutyMapper.selectAllByOrganUuid(organUuid);
+	}
+
+
+
 }

@@ -155,7 +155,7 @@
           <if test="likeResName != null and likeResName != ''">
             res_name like concat('%',#{likeResName,jdbcType=VARCHAR},'%')
           </if>
-          <if test="likeResName != null and likeResName != ''">
+          <if test="likeResUrl != null and likeResUrl != ''">
             and res_url like concat('%',#{likeResUrl,jdbcType=VARCHAR},'%')
           </if>
           <if test="resType != null and resType != ''">

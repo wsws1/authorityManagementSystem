@@ -29,17 +29,8 @@ public class PtOrganServiceImpl implements PtOrganService {
 
     @Override
     public int addOrgan(PtOrgan record) {
-        //step1 查询父ID 是否存在
-        // 若不在，则错误
-        // 若在，更新isParent true
-        System.out.println("parent uuid "+record.getParentUuid());
-        PtOrgan feather=ptOrganMapper.selectOneByOrganUuid(record.getParentUuid());
-        if (feather==null){
-            return 0;
-        }
-        //step2 插入子组织
+
         record.setOrganUuid(UUIDUtil.getUUID());
-        record.setIsParent(false);
         record.setModtime(LocalDateTime.now());
         return ptOrganMapper.insert(record);
     }

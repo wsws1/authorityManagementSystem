@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simo.meitan.mapper.PtUserMapper">
+  <resultMap id="BaseResultMap" type="com.simo.meitan.model.PtUser">
+    <!--@mbg.generated-->
+    <!--@Table pt_user-->
+    <id column="user_uuid" jdbcType="VARCHAR" property="userUuid" />
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="enabled" jdbcType="DECIMAL" property="enabled" />
+    <result column="account_non_expired" jdbcType="DECIMAL" property="accountNonExpired" />
+    <result column="credentials_non_expired" jdbcType="DECIMAL" property="credentialsNonExpired" />
+    <result column="account_non_locked" jdbcType="DECIMAL" property="accountNonLocked" />
+    <result column="organ_uuid" jdbcType="VARCHAR" property="organUuid" />
+    <result column="nice_name" jdbcType="VARCHAR" property="niceName" />
+    <result column="is_admin" jdbcType="BOOLEAN" property="isAdmin" />
+    <result column="maximumsessions" jdbcType="DECIMAL" property="maximumsessions" />
+    <result column="registerdate" jdbcType="TIMESTAMP" property="registerdate" />
+    <result column="lastlogintime" jdbcType="TIMESTAMP" property="lastlogintime" />
+    <result column="pwdque" jdbcType="VARCHAR" property="pwdque" />
+    <result column="pwdans" jdbcType="VARCHAR" property="pwdans" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="depid" jdbcType="VARCHAR" property="depid" />
+    <result column="status" jdbcType="BOOLEAN" property="status" />
+    <result column="modtime" jdbcType="TIMESTAMP" property="modtime" />
+    <result column="modifierid" jdbcType="VARCHAR" property="modifierid" />
+    <result column="is_sum" jdbcType="BOOLEAN" property="isSum" />
+    <result column="duty_uuid" jdbcType="VARCHAR" property="dutyUuid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    user_uuid, id, username, `password`, email, mobile, enabled, account_non_expired, 
+    credentials_non_expired, account_non_locked, organ_uuid, nice_name, is_admin, maximumsessions, 
+    registerdate, lastlogintime, pwdque, pwdans, remark, depid, `status`, modtime, modifierid, 
+    is_sum, duty_uuid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from pt_user
+    where user_uuid = #{userUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from pt_user
+    where user_uuid = #{userUuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.simo.meitan.model.PtUser">
+    <!--@mbg.generated-->
+    insert into pt_user (user_uuid, id, username, 
+      `password`, email, mobile, 
+      enabled, account_non_expired, credentials_non_expired, 
+      account_non_locked, organ_uuid, nice_name, 
+      is_admin, maximumsessions, registerdate, 
+      lastlogintime, pwdque, pwdans, 
+      remark, depid, `status`, 
+      modtime, modifierid, is_sum, 
+      duty_uuid)
+    values (#{userUuid,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{enabled,jdbcType=DECIMAL}, #{accountNonExpired,jdbcType=DECIMAL}, #{credentialsNonExpired,jdbcType=DECIMAL}, 
+      #{accountNonLocked,jdbcType=DECIMAL}, #{organUuid,jdbcType=VARCHAR}, #{niceName,jdbcType=VARCHAR}, 
+      #{isAdmin,jdbcType=BOOLEAN}, #{maximumsessions,jdbcType=DECIMAL}, #{registerdate,jdbcType=TIMESTAMP}, 
+      #{lastlogintime,jdbcType=TIMESTAMP}, #{pwdque,jdbcType=VARCHAR}, #{pwdans,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{depid,jdbcType=VARCHAR}, #{status,jdbcType=BOOLEAN}, 
+      #{modtime,jdbcType=TIMESTAMP}, #{modifierid,jdbcType=VARCHAR}, #{isSum,jdbcType=BOOLEAN}, 
+      #{dutyUuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.simo.meitan.model.PtUser">
+    <!--@mbg.generated-->
+    insert into pt_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userUuid != null and userUuid != ''">
+        user_uuid,
+      </if>
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="username != null and username != ''">
+        username,
+      </if>
+      <if test="password != null and password != ''">
+        `password`,
+      </if>
+      <if test="email != null and email != ''">
+        email,
+      </if>
+      <if test="mobile != null and mobile != ''">
+        mobile,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="accountNonExpired != null">
+        account_non_expired,
+      </if>
+      <if test="credentialsNonExpired != null">
+        credentials_non_expired,
+      </if>
+      <if test="accountNonLocked != null">
+        account_non_locked,
+      </if>
+      <if test="organUuid != null and organUuid != ''">
+        organ_uuid,
+      </if>
+      <if test="niceName != null and niceName != ''">
+        nice_name,
+      </if>
+      <if test="isAdmin != null">
+        is_admin,
+      </if>
+      <if test="maximumsessions != null">
+        maximumsessions,
+      </if>
+      <if test="registerdate != null">
+        registerdate,
+      </if>
+      <if test="lastlogintime != null">
+        lastlogintime,
+      </if>
+      <if test="pwdque != null and pwdque != ''">
+        pwdque,
+      </if>
+      <if test="pwdans != null and pwdans != ''">
+        pwdans,
+      </if>
+      <if test="remark != null and remark != ''">
+        remark,
+      </if>
+      <if test="depid != null and depid != ''">
+        depid,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="modtime != null">
+        modtime,
+      </if>
+      <if test="modifierid != null and modifierid != ''">
+        modifierid,
+      </if>
+      <if test="isSum != null">
+        is_sum,
+      </if>
+      <if test="dutyUuid != null and dutyUuid != ''">
+        duty_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userUuid != null and userUuid != ''">
+        #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null and username != ''">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null and password != ''">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null and email != ''">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null and mobile != ''">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="accountNonExpired != null">
+        #{accountNonExpired,jdbcType=DECIMAL},
+      </if>
+      <if test="credentialsNonExpired != null">
+        #{credentialsNonExpired,jdbcType=DECIMAL},
+      </if>
+      <if test="accountNonLocked != null">
+        #{accountNonLocked,jdbcType=DECIMAL},
+      </if>
+      <if test="organUuid != null and organUuid != ''">
+        #{organUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="niceName != null and niceName != ''">
+        #{niceName,jdbcType=VARCHAR},
+      </if>
+      <if test="isAdmin != null">
+        #{isAdmin,jdbcType=BOOLEAN},
+      </if>
+      <if test="maximumsessions != null">
+        #{maximumsessions,jdbcType=DECIMAL},
+      </if>
+      <if test="registerdate != null">
+        #{registerdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastlogintime != null">
+        #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pwdque != null and pwdque != ''">
+        #{pwdque,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdans != null and pwdans != ''">
+        #{pwdans,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null and remark != ''">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="depid != null and depid != ''">
+        #{depid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BOOLEAN},
+      </if>
+      <if test="modtime != null">
+        #{modtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifierid != null and modifierid != ''">
+        #{modifierid,jdbcType=VARCHAR},
+      </if>
+      <if test="isSum != null">
+        #{isSum,jdbcType=BOOLEAN},
+      </if>
+      <if test="dutyUuid != null and dutyUuid != ''">
+        #{dutyUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.simo.meitan.model.PtUser">
+    <!--@mbg.generated-->
+    update pt_user
+    <set>
+      <if test="id != null and id != ''">
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null and username != ''">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null and password != ''">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null and email != ''">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null and mobile != ''">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="accountNonExpired != null">
+        account_non_expired = #{accountNonExpired,jdbcType=DECIMAL},
+      </if>
+      <if test="credentialsNonExpired != null">
+        credentials_non_expired = #{credentialsNonExpired,jdbcType=DECIMAL},
+      </if>
+      <if test="accountNonLocked != null">
+        account_non_locked = #{accountNonLocked,jdbcType=DECIMAL},
+      </if>
+      <if test="organUuid != null and organUuid != ''">
+        organ_uuid = #{organUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="niceName != null and niceName != ''">
+        nice_name = #{niceName,jdbcType=VARCHAR},
+      </if>
+      <if test="isAdmin != null">
+        is_admin = #{isAdmin,jdbcType=BOOLEAN},
+      </if>
+      <if test="maximumsessions != null">
+        maximumsessions = #{maximumsessions,jdbcType=DECIMAL},
+      </if>
+      <if test="registerdate != null">
+        registerdate = #{registerdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastlogintime != null">
+        lastlogintime = #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pwdque != null and pwdque != ''">
+        pwdque = #{pwdque,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdans != null and pwdans != ''">
+        pwdans = #{pwdans,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null and remark != ''">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="depid != null and depid != ''">
+        depid = #{depid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BOOLEAN},
+      </if>
+      <if test="modtime != null">
+        modtime = #{modtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifierid != null and modifierid != ''">
+        modifierid = #{modifierid,jdbcType=VARCHAR},
+      </if>
+      <if test="isSum != null">
+        is_sum = #{isSum,jdbcType=BOOLEAN},
+      </if>
+      <if test="dutyUuid != null and dutyUuid != ''">
+        duty_uuid = #{dutyUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_uuid = #{userUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.simo.meitan.model.PtUser">
+    <!--@mbg.generated-->
+    update pt_user
+    set id = #{id,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      enabled = #{enabled,jdbcType=DECIMAL},
+      account_non_expired = #{accountNonExpired,jdbcType=DECIMAL},
+      credentials_non_expired = #{credentialsNonExpired,jdbcType=DECIMAL},
+      account_non_locked = #{accountNonLocked,jdbcType=DECIMAL},
+      organ_uuid = #{organUuid,jdbcType=VARCHAR},
+      nice_name = #{niceName,jdbcType=VARCHAR},
+      is_admin = #{isAdmin,jdbcType=BOOLEAN},
+      maximumsessions = #{maximumsessions,jdbcType=DECIMAL},
+      registerdate = #{registerdate,jdbcType=TIMESTAMP},
+      lastlogintime = #{lastlogintime,jdbcType=TIMESTAMP},
+      pwdque = #{pwdque,jdbcType=VARCHAR},
+      pwdans = #{pwdans,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      depid = #{depid,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=BOOLEAN},
+      modtime = #{modtime,jdbcType=TIMESTAMP},
+      modifierid = #{modifierid,jdbcType=VARCHAR},
+      is_sum = #{isSum,jdbcType=BOOLEAN},
+      duty_uuid = #{dutyUuid,jdbcType=VARCHAR}
+    where user_uuid = #{userUuid,jdbcType=VARCHAR}
+  </update>
+
+<!--auto generated by MybatisCodeHelper on 2020-07-15-->
+  <select id="selectAllByUsernameLikeAndOrganUuidLikeAndDutyUuidLike" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pt_user
+        <where>
+          <if test="likeUsername != null and likeUsername != ''">
+            username like concat('%',#{likeUsername,jdbcType=VARCHAR},'%')
+          </if>
+          <if test="likeOrganUuid != null and likeOrganUuid != ''">
+            and organ_uuid like concat('%',#{likeOrganUuid,jdbcType=VARCHAR},'%')
+          </if>
+          <if test="likeDutyUuid != null and likeDutyUuid != ''">
+            and duty_uuid like concat('%',#{likeDutyUuid,jdbcType=VARCHAR},'%')
+          </if>
+        </where>
+    </select>
+</mapper>

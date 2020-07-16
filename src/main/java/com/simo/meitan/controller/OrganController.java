@@ -33,8 +33,6 @@ public class OrganController {
         if(ptOrganDTO!=null){
             PtOrgan ptOrgan=new PtOrgan();
             BeanUtils.copyProperties(ptOrganDTO,ptOrgan);
-            ptOrgan.setModtime(LocalDateTime.now());
-            ptOrgan.setIsParent(false);
             int recode=ptOrganService.addOrgan(ptOrgan);
             if (recode>0){
                 return RestResponse.succuess("添加组织成功");
@@ -62,12 +60,11 @@ public class OrganController {
         if (ptOrganDTO==null || StringUtils.isEmpty(ptOrganDTO.getOrganUuid())){
             return RestResponse.fail("请检查组织信息");
         }
-
-        int recode1 =ptOrganService.deleteOrgan(ptOrganDTO.getOrganUuid());
         PtOrgan ptOrgan=new PtOrgan();
         BeanUtils.copyProperties(ptOrganDTO,ptOrgan);
-        int recode2=ptOrganService.addOrgan(ptOrgan);
-        if (recode1==0||recode2==0){
+        ptOrgan.setModtime(LocalDateTime.now());
+        int recode=ptOrganService.updateByPrimaryKeySelective(ptOrgan);
+        if (recode==0){
             return RestResponse.fail("修改组织信息失败");
         }
 

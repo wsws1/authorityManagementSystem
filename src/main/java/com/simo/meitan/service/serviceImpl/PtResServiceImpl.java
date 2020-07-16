@@ -80,7 +80,7 @@ public class PtResServiceImpl implements PtResService{
         List<PtRes> ptResList=null;
         ptResList=ptResMapper.selectAllByResNameLikeAndResUrlLikeAndResType(
                 resName,
-                resName,
+                resUrl,
                 type
         );
         return new PageInfo<>(ptResList);

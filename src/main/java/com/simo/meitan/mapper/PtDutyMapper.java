@@ -19,6 +19,11 @@ public interface PtDutyMapper {
 
     List<PtDuty> selectAllByNameLikeAndOrganUuidLikeAndRoleUuidLike(@Param("likeName")String likeName,@Param("likeOrganUuid")String likeOrganUuid,@Param("likeRoleUuid")String likeRoleUuid);
 
+    List<PtDuty> selectAllByOrganUuid(@Param("organUuid")String organUuid);
+
+
+
+
 
 
 }

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RequestMapping("/duty")
 @RestController
@@ -90,5 +92,14 @@ public class DutyController {
             return RestResponse.fail("请检查岗位Id");
         }
     }
-    
+
+    @GetMapping("/getlistbyorganid")
+    public RestResponse getDutyListByOrganId(@RequestParam("organId") String organId){
+        if(!StringUtils.isEmpty(organId)){
+            List<PtDuty> ptDutyList=ptDutyService.selectAllByOrganUuid(organId);
+            return RestResponse.succuess(ptDutyList);
+        }else{
+            return RestResponse.fail("请检查组织Id");
+        }
+    }
 }
