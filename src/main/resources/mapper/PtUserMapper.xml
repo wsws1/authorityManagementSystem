@@ -5,8 +5,8 @@
     <!--@mbg.generated-->
     <!--@Table pt_user-->
     <id column="user_uuid" jdbcType="VARCHAR" property="userUuid" />
+    <id column="username" jdbcType="VARCHAR" property="username" />
     <result column="id" jdbcType="VARCHAR" property="id" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
@@ -29,29 +29,32 @@
     <result column="modifierid" jdbcType="VARCHAR" property="modifierid" />
     <result column="is_sum" jdbcType="BOOLEAN" property="isSum" />
     <result column="duty_uuid" jdbcType="VARCHAR" property="dutyUuid" />
+    <result column="avatar_name" jdbcType="VARCHAR" property="avatarName" />
+    <result column="avatar_path" jdbcType="VARCHAR" property="avatarPath" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    user_uuid, id, username, `password`, email, mobile, enabled, account_non_expired, 
+    user_uuid, username, id, `password`, email, mobile, enabled, account_non_expired, 
     credentials_non_expired, account_non_locked, organ_uuid, nice_name, is_admin, maximumsessions, 
     registerdate, lastlogintime, pwdque, pwdans, remark, depid, `status`, modtime, modifierid, 
-    is_sum, duty_uuid
+    is_sum, duty_uuid, avatar_name, avatar_path
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
     from pt_user
     where user_uuid = #{userUuid,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="map">
     <!--@mbg.generated-->
     delete from pt_user
     where user_uuid = #{userUuid,jdbcType=VARCHAR}
+      and username = #{username,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.simo.meitan.model.PtUser">
     <!--@mbg.generated-->
-    insert into pt_user (user_uuid, id, username, 
+    insert into pt_user (user_uuid, username, id, 
       `password`, email, mobile, 
       enabled, account_non_expired, credentials_non_expired, 
       account_non_locked, organ_uuid, nice_name, 
@@ -59,8 +62,9 @@
       lastlogintime, pwdque, pwdans, 
       remark, depid, `status`, 
       modtime, modifierid, is_sum, 
-      duty_uuid)
-    values (#{userUuid,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      duty_uuid, avatar_name, avatar_path
+      )
+    values (#{userUuid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
       #{enabled,jdbcType=DECIMAL}, #{accountNonExpired,jdbcType=DECIMAL}, #{credentialsNonExpired,jdbcType=DECIMAL}, 
       #{accountNonLocked,jdbcType=DECIMAL}, #{organUuid,jdbcType=VARCHAR}, #{niceName,jdbcType=VARCHAR}, 
@@ -68,7 +72,8 @@
       #{lastlogintime,jdbcType=TIMESTAMP}, #{pwdque,jdbcType=VARCHAR}, #{pwdans,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR}, #{depid,jdbcType=VARCHAR}, #{status,jdbcType=BOOLEAN}, 
       #{modtime,jdbcType=TIMESTAMP}, #{modifierid,jdbcType=VARCHAR}, #{isSum,jdbcType=BOOLEAN}, 
-      #{dutyUuid,jdbcType=VARCHAR})
+      #{dutyUuid,jdbcType=VARCHAR}, #{avatarName,jdbcType=VARCHAR}, #{avatarPath,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.simo.meitan.model.PtUser">
     <!--@mbg.generated-->
@@ -77,11 +82,11 @@
       <if test="userUuid != null and userUuid != ''">
         user_uuid,
       </if>
-      <if test="id != null and id != ''">
-        id,
-      </if>
       <if test="username != null and username != ''">
         username,
+      </if>
+      <if test="id != null and id != ''">
+        id,
       </if>
       <if test="password != null and password != ''">
         `password`,
@@ -149,16 +154,22 @@
       <if test="dutyUuid != null and dutyUuid != ''">
         duty_uuid,
       </if>
+      <if test="avatarName != null and avatarName != ''">
+        avatar_name,
+      </if>
+      <if test="avatarPath != null and avatarPath != ''">
+        avatar_path,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userUuid != null and userUuid != ''">
         #{userUuid,jdbcType=VARCHAR},
       </if>
-      <if test="id != null and id != ''">
-        #{id,jdbcType=VARCHAR},
-      </if>
       <if test="username != null and username != ''">
         #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
       </if>
       <if test="password != null and password != ''">
         #{password,jdbcType=VARCHAR},
@@ -226,6 +237,12 @@
       <if test="dutyUuid != null and dutyUuid != ''">
         #{dutyUuid,jdbcType=VARCHAR},
       </if>
+      <if test="avatarName != null and avatarName != ''">
+        #{avatarName,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarPath != null and avatarPath != ''">
+        #{avatarPath,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.simo.meitan.model.PtUser">
@@ -234,9 +251,6 @@
     <set>
       <if test="id != null and id != ''">
         id = #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null and username != ''">
-        username = #{username,jdbcType=VARCHAR},
       </if>
       <if test="password != null and password != ''">
         `password` = #{password,jdbcType=VARCHAR},
@@ -304,14 +318,20 @@
       <if test="dutyUuid != null and dutyUuid != ''">
         duty_uuid = #{dutyUuid,jdbcType=VARCHAR},
       </if>
+      <if test="avatarName != null and avatarName != ''">
+        avatar_name = #{avatarName,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarPath != null and avatarPath != ''">
+        avatar_path = #{avatarPath,jdbcType=VARCHAR},
+      </if>
     </set>
     where user_uuid = #{userUuid,jdbcType=VARCHAR}
+      and username = #{username,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.simo.meitan.model.PtUser">
     <!--@mbg.generated-->
     update pt_user
     set id = #{id,jdbcType=VARCHAR},
-      username = #{username,jdbcType=VARCHAR},
       `password` = #{password,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=VARCHAR},
@@ -333,14 +353,46 @@
       modtime = #{modtime,jdbcType=TIMESTAMP},
       modifierid = #{modifierid,jdbcType=VARCHAR},
       is_sum = #{isSum,jdbcType=BOOLEAN},
-      duty_uuid = #{dutyUuid,jdbcType=VARCHAR}
+      duty_uuid = #{dutyUuid,jdbcType=VARCHAR},
+      avatar_name = #{avatarName,jdbcType=VARCHAR},
+      avatar_path = #{avatarPath,jdbcType=VARCHAR}
     where user_uuid = #{userUuid,jdbcType=VARCHAR}
+      and username = #{username,jdbcType=VARCHAR}
   </update>
+  <resultMap id="BaseResultMap2" type="com.simo.meitan.model.PtUser">
 
-<!--auto generated by MybatisCodeHelper on 2020-07-15-->
+    <id column="user_uuid" jdbcType="VARCHAR" property="userUuid" />
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="enabled" jdbcType="DECIMAL" property="enabled" />
+    <result column="account_non_expired" jdbcType="DECIMAL" property="accountNonExpired" />
+    <result column="credentials_non_expired" jdbcType="DECIMAL" property="credentialsNonExpired" />
+    <result column="account_non_locked" jdbcType="DECIMAL" property="accountNonLocked" />
+    <result column="organ_uuid" jdbcType="VARCHAR" property="organUuid" />
+    <result column="nice_name" jdbcType="VARCHAR" property="niceName" />
+    <result column="is_admin" jdbcType="BOOLEAN" property="isAdmin" />
+    <result column="maximumsessions" jdbcType="DECIMAL" property="maximumsessions" />
+    <result column="registerdate" jdbcType="TIMESTAMP" property="registerdate" />
+    <result column="lastlogintime" jdbcType="TIMESTAMP" property="lastlogintime" />
+    <result column="pwdque" jdbcType="VARCHAR" property="pwdque" />
+    <result column="pwdans" jdbcType="VARCHAR" property="pwdans" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="depid" jdbcType="VARCHAR" property="depid" />
+    <result column="status" jdbcType="BOOLEAN" property="status" />
+    <result column="modtime" jdbcType="TIMESTAMP" property="modtime" />
+    <result column="modifierid" jdbcType="VARCHAR" property="modifierid" />
+    <result column="is_sum" jdbcType="BOOLEAN" property="isSum" />
+    <result column="duty_uuid" jdbcType="VARCHAR" property="dutyUuid" />
+    <result column="avatar_name" jdbcType="VARCHAR" property="avatarName" />
+    <result column="avatar_path" jdbcType="VARCHAR" property="avatarPath" />
+  </resultMap>
+
   <select id="selectAllByUsernameLikeAndOrganUuidLikeAndDutyUuidLike" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         from pt_user
         <where>
           <if test="likeUsername != null and likeUsername != ''">
@@ -354,4 +406,12 @@
           </if>
         </where>
     </select>
+
+<!--auto generated by MybatisCodeHelper on 2020-07-18-->
+  <select id="selectOneByUsername" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from pt_user
+    where username=#{username,jdbcType=VARCHAR}
+  </select>
 </mapper>

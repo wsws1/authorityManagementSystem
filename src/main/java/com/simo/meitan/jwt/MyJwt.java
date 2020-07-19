@@ -42,7 +42,7 @@ public class MyJwt extends BasicAuthenticationFilter {
                  username= claims.getSubject();//获取当前登录用户名
                 System.out.println(username);
                 List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList((String) claims.get("authorities"));
-                System.out.println(authorities.get(0).getAuthority());
+                System.out.println(authorities);
 
                 token=new UsernamePasswordAuthenticationToken(username, null, authorities);
             }catch (Exception exception) {

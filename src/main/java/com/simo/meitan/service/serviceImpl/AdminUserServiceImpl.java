@@ -12,8 +12,8 @@ import javax.annotation.Resource;
 import com.simo.meitan.mapper.AdminUserMapper;
 import com.simo.meitan.model.AdminUser;
 import com.simo.meitan.service.AdminUserService;
-@Service("AdminUserServiceImpl")
-public class AdminUserServiceImpl implements AdminUserService , UserDetailsService {
+@Service
+public class AdminUserServiceImpl implements AdminUserService  {
 
     @Resource
     private AdminUserMapper adminUserMapper;
@@ -53,14 +53,5 @@ public class AdminUserServiceImpl implements AdminUserService , UserDetailsServi
 		 return adminUserMapper.selectOneByUsername(username);
 	}
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDTO userDTO=new UserDTO();
-        AdminUser adminUser=selectOneByUsername(username);
-        userDTO.setUsername(adminUser.getUsername());
-        userDTO.setPassword(adminUser.getPassword());
-        List<GrantedAuthority> authorities= AuthorityUtils.commaSeparatedStringToAuthorityList((adminUser.getRole()));
-        userDTO.setAuthorities(authorities);
-        return  userDTO;
-    }
+
 }

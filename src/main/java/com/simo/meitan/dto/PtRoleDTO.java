@@ -15,5 +15,5 @@ public class PtRoleDTO {
 
     private String roleName;
 
-    private List<String> resList;
+    private List<String> menuList;
 }

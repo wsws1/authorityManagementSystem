@@ -1,16 +1,20 @@
 package com.simo.meitan.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.simo.meitan.dto.PtUserDTO;
 import com.simo.meitan.dto.UserDTO;
+import com.simo.meitan.model.AdminUser;
 import com.simo.meitan.vo.Token;
 import com.simo.meitan.utils.RestResponse;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.apache.catalina.security.SecurityUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -22,6 +26,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
@@ -31,7 +37,7 @@ public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
     }
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse resp) throws AuthenticationException, IOException, ServletException {
-        UserDTO userDTO = new ObjectMapper().readValue(req.getInputStream(), UserDTO.class);
+        PtUserDTO userDTO = new ObjectMapper().readValue(req.getInputStream(), PtUserDTO.class);
         return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(userDTO.getUsername(), userDTO.getPassword()));
     }
     @Override
@@ -52,7 +58,11 @@ public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
         PrintWriter out = resp.getWriter();
         ObjectMapper mapper=new ObjectMapper();
         Token token=new Token(jwt);
-        RestResponse restResponse= RestResponse.succuess(token);
+        Map<String,Object> resultMap=new HashMap<>();
+        resultMap.put("token",token.getToken());
+        PtUserDTO userDTO=(PtUserDTO)authResult.getPrincipal();
+        resultMap.put("user",userDTO);
+        RestResponse restResponse= RestResponse.succuess(resultMap);
         out.write(mapper.writeValueAsString(restResponse));
         out.flush();
         out.close();

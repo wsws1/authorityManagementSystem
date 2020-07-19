@@ -1,4 +1,5 @@
 package com.simo.meitan.service;
+import java.util.List;
 
 import com.github.pagehelper.PageInfo;
 import com.simo.meitan.model.PtUser;
@@ -25,4 +26,9 @@ public interface PtUserService{
             Integer page,
             Integer size
     );
+
+
+
+	PtUser selectOneByUsername(String username);
+
 }

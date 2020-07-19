@@ -12,12 +12,12 @@ import lombok.NoArgsConstructor;
 public class PtUser {
     private String userUuid;
 
-    private String id;
-
     /**
      * 登录名
      */
     private String username;
+
+    private String id;
 
     /**
      * 密码
@@ -107,4 +107,11 @@ public class PtUser {
      * 岗位Id
      */
     private String dutyUuid;
+
+    private String avatarName;
+
+    private String avatarPath;
+
+
+
 }

@@ -5,6 +5,7 @@ import com.simo.meitan.dto.PtRoleDTO;
 import com.simo.meitan.model.PtRole;
 import com.simo.meitan.service.PtRoleResService;
 import com.simo.meitan.service.PtRoleService;
+import com.simo.meitan.service.PtRolesMenusService;
 import com.simo.meitan.utils.RestResponse;
 import com.simo.meitan.utils.UUIDUtil;
 import org.springframework.beans.BeanUtils;
@@ -18,7 +19,7 @@ public class RoleController {
     @Autowired
     PtRoleService ptRoleService;
     @Autowired
-    PtRoleResService ptRoleResService;
+    PtRolesMenusService  ptRolesMenusService;
 
     
 
@@ -30,8 +31,8 @@ public class RoleController {
             BeanUtils.copyProperties(ptRoleDTO,ptRole);
 
             int recode1=ptRoleService.insert(ptRole);
-            int recode2=ptRoleResService.addResListByRoleUuid(ptRoleDTO);
-            if (recode1>0&&(ptRoleDTO.getResList()==null||recode2==ptRoleDTO.getResList().size())){
+            int recode2=ptRolesMenusService.addMenuListByRoleUuid(ptRoleDTO);
+            if (recode1>0&&(ptRoleDTO.getMenuList()==null||recode2==ptRoleDTO.getMenuList().size())){
                 return RestResponse.succuess("添加角色成功");
             }
         }
@@ -44,7 +45,7 @@ public class RoleController {
             return RestResponse.fail("请输入正确的角色id");
         }else{
             int recode=ptRoleService.deleteByPrimaryKey(roleId);
-            ptRoleResService.deleteByRoleUuid(roleId);
+            ptRolesMenusService.deleteByRoleUuid(roleId);
             if (recode>0){
                 return RestResponse.succuess("删除角色成功");
             }else {
@@ -63,10 +64,10 @@ public class RoleController {
         BeanUtils.copyProperties(ptRoleDTO,ptRole);
         int recode1 =ptRoleService.updateByPrimaryKeySelective(ptRole);
         int recode2=0;
-        if(ptRoleDTO.getResList()!=null&&ptRoleDTO.getResList().size()>0){
-            recode2=ptRoleResService.addResListByRoleUuid(ptRoleDTO);
+        if(ptRoleDTO.getMenuList()!=null&&ptRoleDTO.getMenuList().size()>0){
+            recode2=ptRolesMenusService.addMenuListByRoleUuid(ptRoleDTO);
         }
-        if (recode1==0||(ptRoleDTO.getResList()!=null&&ptRoleDTO.getResList().size()!=recode2)){
+        if (recode1==0||(ptRoleDTO.getMenuList()!=null&&ptRoleDTO.getMenuList().size()!=recode2)){
             return RestResponse.fail("修改角色信息失败");
         }
 
@@ -100,7 +101,7 @@ public class RoleController {
             PtRoleDTO ptRoleDTO=new PtRoleDTO();
             PtRole ptRole=ptRoleService.selectByPrimaryKey(roleId);
             BeanUtils.copyProperties(ptRole,ptRoleDTO);
-            ptRoleDTO.setResList(ptRoleResService.selectAllByRoleUuid(roleId));
+            ptRoleDTO.setMenuList(ptRolesMenusService.getSelectedMenuUuidByRoleUuid(roleId));
             return RestResponse.succuess(ptRoleDTO);
         }else{
             return RestResponse.fail("请检查角色Id");

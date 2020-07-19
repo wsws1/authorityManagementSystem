@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simo.meitan.mapper.PtMenuMapper">
+  <resultMap id="BaseResultMapWithChildrenAndRoleUuid" type="com.simo.meitan.model.PtMenu">
+    <id column="menu_uuid" jdbcType="VARCHAR" property="menuUuid" />
+    <result column="parent_uuid" jdbcType="VARCHAR" property="parentUuid" />
+    <result column="sub_count" jdbcType="INTEGER" property="subCount" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="component" jdbcType="VARCHAR" property="component" />
+    <result column="menu_sort" jdbcType="INTEGER" property="menuSort" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="i_frame" jdbcType="BIT" property="iFrame" />
+    <result column="hidden" jdbcType="BIT" property="hidden" />
+    <result column="permission" jdbcType="VARCHAR" property="permission" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="title" jdbcType="VARCHAR" property="title"/>
+    <result column="icon" jdbcType="VARCHAR" property="icon"/>
+    <association property="meta" javaType="com.simo.meitan.model.MenuMeta">
+      <result column="title" jdbcType="VARCHAR" property="title"/>
+      <result column="icon" jdbcType="VARCHAR" property="icon"/>
+    </association>
+    <collection property="children" ofType="com.simo.meitan.model.PtMenu" select="com.simo.meitan.mapper.PtMenuMapper.selectPtResForestByParentUUIDAndRoleUuid"
+                column="{parentUuid=menu_uuid,roleUuid=role_uuid}">
+
+    </collection>
+  </resultMap>
+  <resultMap id="BaseResultMapWithChildren" type="com.simo.meitan.model.PtMenu">
+    <id column="menu_uuid" jdbcType="VARCHAR" property="menuUuid" />
+    <result column="parent_uuid" jdbcType="VARCHAR" property="parentUuid" />
+    <result column="sub_count" jdbcType="INTEGER" property="subCount" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="component" jdbcType="VARCHAR" property="component" />
+    <result column="menu_sort" jdbcType="INTEGER" property="menuSort" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="i_frame" jdbcType="BIT" property="iFrame" />
+    <result column="hidden" jdbcType="BIT" property="hidden" />
+    <result column="permission" jdbcType="VARCHAR" property="permission" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="title" jdbcType="VARCHAR" property="title"/>
+    <result column="icon" jdbcType="VARCHAR" property="icon"/>
+    <association property="meta" javaType="com.simo.meitan.model.MenuMeta">
+      <result column="title" jdbcType="VARCHAR" property="title"/>
+      <result column="icon" jdbcType="VARCHAR" property="icon"/>
+    </association>
+    <collection property="children" ofType="com.simo.meitan.model.PtMenu" select="com.simo.meitan.mapper.PtMenuMapper.selectPtResForestByParentUUID" column="menu_uuid">
+
+    </collection>
+  </resultMap>
+  <resultMap id="BaseResultMap" type="com.simo.meitan.model.PtMenu">
+    <!--@mbg.generated-->
+    <!--@Table pt_menu-->
+    <id column="menu_uuid" jdbcType="VARCHAR" property="menuUuid" />
+    <result column="parent_uuid" jdbcType="VARCHAR" property="parentUuid" />
+    <result column="sub_count" jdbcType="INTEGER" property="subCount" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="component" jdbcType="VARCHAR" property="component" />
+    <result column="menu_sort" jdbcType="INTEGER" property="menuSort" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="i_frame" jdbcType="BIT" property="iFrame" />
+    <result column="cache" jdbcType="BIT" property="cache" />
+    <result column="hidden" jdbcType="BIT" property="hidden" />
+    <result column="permission" jdbcType="VARCHAR" property="permission" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="title" jdbcType="VARCHAR" property="title"/>
+    <result column="icon" jdbcType="VARCHAR" property="icon"/>
+    <association property="meta" javaType="com.simo.meitan.model.MenuMeta">
+      <result column="title" jdbcType="VARCHAR" property="title"/>
+      <result column="icon" jdbcType="VARCHAR" property="icon"/>
+    </association>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    pt_menu.menu_uuid, parent_uuid, sub_count, `type`, title, `name`, component, menu_sort, icon,
+    `path`, i_frame, `cache`, hidden, permission, create_by, update_by, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from pt_menu
+    where menu_uuid = #{menuUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from pt_menu
+    where menu_uuid = #{menuUuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.simo.meitan.model.PtMenu">
+    <!--@mbg.generated-->
+    insert into pt_menu (menu_uuid, parent_uuid, sub_count,
+      `type`, title, `name`, 
+      component, menu_sort, icon, 
+      `path`, i_frame, `cache`, hidden, 
+      permission, create_by, update_by, 
+      create_time, update_time)
+    values (#{menuUuid,jdbcType=VARCHAR}, #{parentUuid,jdbcType=VARCHAR}, #{subCount,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{component,jdbcType=VARCHAR}, #{menuSort,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}, 
+      #{path,jdbcType=VARCHAR}, #{iFrame,jdbcType=BIT}, #{cache,jdbcType=BIT}, #{hidden,jdbcType=BIT}, 
+      #{permission,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.simo.meitan.model.PtMenu">
+    <!--@mbg.generated-->
+    insert into pt_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="menuUuid != null and menuUuid != ''">
+        menu_uuid,
+      </if>
+      <if test="parentUuid != null and parentUuid != ''">
+        parent_uuid,
+      </if>
+      <if test="subCount != null">
+        sub_count,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="title != null and title != ''">
+        title,
+      </if>
+      <if test="name != null and name != ''">
+        `name`,
+      </if>
+      <if test="component != null and component != ''">
+        component,
+      </if>
+      <if test="menuSort != null">
+        menu_sort,
+      </if>
+      <if test="icon != null and icon != ''">
+        icon,
+      </if>
+      <if test="path != null and path != ''">
+        `path`,
+      </if>
+      <if test="iFrame != null">
+        i_frame,
+      </if>
+      <if test="cache != null">
+        `cache`,
+      </if>
+      <if test="hidden != null">
+        hidden,
+      </if>
+      <if test="permission != null and permission != ''">
+        permission,
+      </if>
+      <if test="createBy != null and createBy != ''">
+        create_by,
+      </if>
+      <if test="updateBy != null and updateBy != ''">
+        update_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="menuUuid != null and menuUuid != ''">
+        #{menuUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="parentUuid != null and parentUuid != ''">
+        #{parentUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="subCount != null">
+        #{subCount,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="title != null and title != ''">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null and component != ''">
+        #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="menuSort != null">
+        #{menuSort,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null and icon != ''">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null and path != ''">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="iFrame != null">
+        #{iFrame,jdbcType=BIT},
+      </if>
+      <if test="cache != null">
+        #{cache,jdbcType=BIT},
+      </if>
+      <if test="hidden != null">
+        #{hidden,jdbcType=BIT},
+      </if>
+      <if test="permission != null and permission != ''">
+        #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null and createBy != ''">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null and updateBy != ''">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.simo.meitan.model.PtMenu">
+    <!--@mbg.generated-->
+    update pt_menu
+    <set>
+      <if test="parentUuid != null and parentUuid != ''">
+        parent_uuid = #{parentUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="subCount != null">
+        sub_count = #{subCount,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="title != null and title != ''">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null and name != ''">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null and component != ''">
+        component = #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="menuSort != null">
+        menu_sort = #{menuSort,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null and icon != ''">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null and path != ''">
+        `path` = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="iFrame != null">
+        i_frame = #{iFrame,jdbcType=BIT},
+      </if>
+      <if test="cache != null">
+        `cache` = #{cache,jdbcType=BIT},
+      </if>
+      <if test="hidden != null">
+        hidden = #{hidden,jdbcType=BIT},
+      </if>
+      <if test="permission != null and permission != ''">
+        permission = #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null and createBy != ''">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null and updateBy != ''">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where menu_uuid = #{menuUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.simo.meitan.model.PtMenu">
+    <!--@mbg.generated-->
+    update pt_menu
+    set parent_uuid = #{parentUuid,jdbcType=VARCHAR},
+      sub_count = #{subCount,jdbcType=INTEGER},
+      `type` = #{type,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      component = #{component,jdbcType=VARCHAR},
+      menu_sort = #{menuSort,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=VARCHAR},
+      `path` = #{path,jdbcType=VARCHAR},
+      i_frame = #{iFrame,jdbcType=BIT},
+      `cache` = #{cache,jdbcType=BIT},
+      hidden = #{hidden,jdbcType=BIT},
+      permission = #{permission,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where menu_uuid = #{menuUuid,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="selectPtResForestByParentUUID" resultMap="BaseResultMapWithChildren">
+    select
+    <include refid="Base_Column_List" />
+    from pt_menu
+    where parent_uuid=#{parentUuid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectPtResForestByParentUUIDAndRoleUuid" resultMap="BaseResultMapWithChildrenAndRoleUuid">
+    select
+    pt_menu.menu_uuid, parent_uuid, sub_count, `type`, title, `name`, component, menu_sort, icon,
+    `path`, i_frame, `cache`, hidden, permission, create_by, update_by, create_time,
+    update_time,map.role_uuid
+    from pt_roles_menus as map,pt_menu
+    where parent_uuid=#{parentUuid,jdbcType=VARCHAR}
+    and map.role_uuid=#{roleUuid,jdbcType=VARCHAR}
+    and map.menu_uuid=pt_menu.menu_uuid
+    and pt_menu.type=0
+  </select>
+  <select id="selectAllByRoleUuid" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from pt_roles_menus as map,pt_menu
+    where map.role_uuid=#{roleUuid,jdbcType=VARCHAR}
+    and map.menu_uuid=pt_menu.menu_uuid
+  </select>
+
+
+  <parameterMap type="map" id="delVO">
+    <parameter property="menuId" jdbcType="VARCHAR" mode="IN"/>
+    <parameter property="recode" jdbcType="INTEGER" mode="OUT"/>
+  </parameterMap>
+  <select id="deleteMenu" statementType="CALLABLE" parameterMap="delVO" >
+    call deleteMenu(?,?)
+  </select>
+
+
+  <select id="selectAllByTitleLikeAndType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from pt_menu
+    <where>
+      <if test="name != null and name != ''">
+        `title` like concat('%',#{name,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="type != null">
+        and `type` =#{type,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+</mapper>

@@ -15,8 +15,6 @@ public interface PtRoleResService{
 	List<String> selectAllByRoleUuid(String roleUuid);
 
 
-     int addResListByRoleUuid(PtRoleDTO ptRoleDTO) ;
-
 
 
 	int deleteByRoleUuid(String roleUuid);

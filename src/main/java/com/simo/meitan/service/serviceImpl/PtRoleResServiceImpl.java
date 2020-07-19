@@ -28,14 +28,7 @@ public class PtRoleResServiceImpl implements PtRoleResService{
 		 return ptRoleResMapper.selectAllByRoleUuid(roleUuid);
 	}
 
-    @Override
-    public int addResListByRoleUuid(PtRoleDTO ptRoleDTO) {
-        ptRoleResMapper.deleteByRoleUuid(ptRoleDTO.getRoleUuid());
-        if(ptRoleDTO.getResList()==null||ptRoleDTO.getResList().size()==0){
-            return  0;
-        }
-        return ptRoleResMapper.addRes(ptRoleDTO.getRoleUuid(),ptRoleDTO.getResList());
-    }
+
 
 	@Override
 	public int deleteByRoleUuid(String roleUuid){

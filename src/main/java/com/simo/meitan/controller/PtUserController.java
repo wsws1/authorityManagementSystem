@@ -87,6 +87,9 @@ public class PtUserController {
         if(!StringUtils.isEmpty(userId)){
             PtUserDTO ptUserDTO=new PtUserDTO();
             PtUser ptUser=ptUserService.selectByPrimaryKey(userId);
+            if(ptUser==null){
+                return RestResponse.fail("请检查用户Id");
+            }
             BeanUtils.copyProperties(ptUser,ptUserDTO);
             return RestResponse.succuess(ptUserDTO);
         }else{

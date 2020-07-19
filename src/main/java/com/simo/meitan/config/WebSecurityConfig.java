@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -29,9 +30,15 @@ import static cn.hutool.core.util.BooleanUtil.and;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    @Qualifier("AdminUserServiceImpl")
-    private UserDetailsService AdminUserServiceImpl;
+    @Qualifier("UserServiceImpl")
+    private UserDetailsService PtUserServiceImpl;
 
+
+
+    @Bean
+    GrantedAuthorityDefaults grantedAuthorityDefaults() {
+        return new GrantedAuthorityDefaults(""); // Remove the ROLE_ prefix
+    }
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -67,11 +74,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(new JwtAccessDeniedHandler())
                 .and()
                 .authorizeRequests()
-                .antMatchers("/book/*").hasRole("admin")
-                .antMatchers("/organ/*").hasRole("admin")
-                .antMatchers("/user/*").hasRole("editor")
-                .antMatchers("/user/login").authenticated()
-                .anyRequest().permitAll()
+//                .antMatchers("/book/*").hasRole("admin")
+//                .antMatchers("/organ/*").hasRole("admin")
+//                .antMatchers("/user/*").hasRole("editor")
+                .antMatchers("/user/login").permitAll()
+                .antMatchers("/user/logout").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .csrf().disable();
     }
@@ -80,7 +88,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(AdminUserServiceImpl).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(PtUserServiceImpl).passwordEncoder(passwordEncoder());
     }
 
 

@@ -9,9 +9,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,5 +39,11 @@ public class UserController {
         userVO.setRoles(roleList);
         userVO.setUsername(adminUser.getUsername());
         return RestResponse.succuess(userVO);
+    }
+
+
+    @PostMapping("/logout")
+    public RestResponse logout(){
+        return RestResponse.succuess();
     }
 }
