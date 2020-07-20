@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localMysql
+ Source Server         : 虚拟机
  Source Server Type    : MySQL
- Source Server Version : 80014
- Source Host           : localhost:3306
- Source Schema         : simobook
+ Source Server Version : 80020
+ Source Host           : 192.168.0.123:3306
+ Source Schema         : book
 
  Target Server Type    : MySQL
- Target Server Version : 80014
+ Target Server Version : 80020
  File Encoding         : 65001
 
- Date: 09/07/2020 18:50:18
+ Date: 19/07/2020 22:29:35
 */
 
 SET NAMES utf8mb4;
@@ -21,59 +21,61 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for admin_user
 -- ----------------------------
 DROP TABLE IF EXISTS `admin_user`;
-CREATE TABLE `admin_user`  (
-  `id` int(11) NOT NULL,
-  `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `password` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `role` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `nickname` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+CREATE TABLE `admin_user` (
+  `id` int NOT NULL,
+  `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `password` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `role` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `nickname` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `username`(`username`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  UNIQUE KEY `username` (`username`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of admin_user
 -- ----------------------------
+BEGIN;
 INSERT INTO `admin_user` VALUES (1, 'admin', '1111', 'ROLE_admin,ROLE_editor', 'admin', 'https://www.youbaobao.xyz/mpvue-res/logo.jpg');
 INSERT INTO `admin_user` VALUES (2, 'sam', '1111', 'admin', 'sam', 'https://www.youbaobao.xyz/mpvue-res/logo.jpg');
 INSERT INTO `admin_user` VALUES (3, 'nick', 'f315515a2ce0a887dd1cc0e00cdca0e4', 'editor', 'nick', 'https://www.youbaobao.xyz/mpvue-res/logo.jpg');
 INSERT INTO `admin_user` VALUES (4, 'sang', '1111', 'ROLE_editor', '123', 'https://www.youbaobao.xyz/mpvue-res/logo.jpg');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for book
 -- ----------------------------
 DROP TABLE IF EXISTS `book`;
-CREATE TABLE `book`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `book` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `fileName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `cover` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `cover` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `title` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `author` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `publisher` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `bookId` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `category` int(3) NULL DEFAULT NULL,
-  `categoryText` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `language` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `rootFile` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `originalName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `filePath` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `unzipPath` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `coverPath` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `createUser` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `createDt` bigint(20) NULL DEFAULT NULL,
-  `updateDt` bigint(20) NULL DEFAULT NULL,
-  `updateType` int(1) UNSIGNED ZEROFILL NOT NULL,
+  `author` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `publisher` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `bookId` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `category` int DEFAULT NULL,
+  `categoryText` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `language` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `rootFile` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `originalName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `filePath` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `unzipPath` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `coverPath` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `createUser` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `createDt` bigint DEFAULT NULL,
+  `updateDt` bigint DEFAULT NULL,
+  `updateType` int(1) unsigned zerofill NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `fileName`(`fileName`) USING BTREE,
-  INDEX `category`(`category`) USING BTREE,
-  INDEX `fileName+category`(`fileName`, `category`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 564 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  UNIQUE KEY `fileName` (`fileName`) USING BTREE,
+  KEY `category` (`category`) USING BTREE,
+  KEY `fileName+category` (`fileName`,`category`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=564 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of book
 -- ----------------------------
-INSERT INTO `book` VALUES (10, '2018_Book_MarketSegmentationAnalysis', '/BusinessandManagement/978-981-10-8818-6_CoverFigure.jpg', 'Market Segmentation Analysis', 'Sara Dolnicar', 'Springer Singapore', '2018_Book_MarketSegmentationAnalysis', 13, 'BusinessandManagement', 'en', 'OEBPS/package.opf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
+BEGIN;
 INSERT INTO `book` VALUES (11, '2018_Book_Prozessintelligenz', '/BusinessandManagement/978-3-662-55705-1_CoverFigure.jpg', 'Prozessintelligenz', 'Elke Brucker-Kley', 'Springer Berlin Heidelberg', '2018_Book_Prozessintelligenz', 13, 'BusinessandManagement', 'de', 'OEBPS/package.opf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 INSERT INTO `book` VALUES (12, '2018_Book_RESTARTSustainableBusinessMode', '/BusinessandManagement/978-3-319-91971-3_CoverFigure.jpg', 'RESTART Sustainable Business Model Innovation', 'Sveinung Jørgensen', 'Springer International Publishing', '2018_Book_RESTARTSustainableBusinessMode', 13, 'BusinessandManagement', 'en', 'OEBPS/package.opf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 INSERT INTO `book` VALUES (13, '2017_Book_SatelliteEarthObservationsAndT', '/EarthSciences/978-981-10-3713-9_CoverFigure.jpg', 'Satellite Earth Observations and Their Impact on Society and Policy', 'Masami Onoda', 'Springer Singapore', '2017_Book_SatelliteEarthObservationsAndT', 14, 'EarthSciences', 'en', 'OEBPS/package.opf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
@@ -550,28 +552,30 @@ INSERT INTO `book` VALUES (556, '94fe3e28-80ec-4290-a75d-bed621a3beb9', 'file/bo
 INSERT INTO `book` VALUES (558, '71f23748-4fdc-474e-bdb2-181ab29416a4', 'file/book/unzip/857a726c-22f6-4701-b73c-073dd1acb909/OPS/images/cover.jpg', '我们仨', ' 杨绛', 'epub掌上书苑', NULL, 45, '测试分类', 'zh_CN', 'file/book/unzip/857a726c-22f6-4701-b73c-073dd1acb909/OPS/fb.opf', '我们仨.epub', 'file/book/71f23748-4fdc-474e-bdb2-181ab29416a4.epub', 'file/book/unzip/857a726c-22f6-4701-b73c-073dd1acb909', NULL, NULL, 1594221046784, NULL, 0);
 INSERT INTO `book` VALUES (561, 'da012ecd-eb1d-427f-96c9-9a20e61c978d', 'file/book/unzip/908d4a65-957d-4997-8cb1-b6efbb005d8e/OPS/images/cover.jpg', '我们仨', ' 杨绛', 'epub掌上书苑', NULL, 45, '测试分类', 'zh_CN', 'file/book/unzip/908d4a65-957d-4997-8cb1-b6efbb005d8e/OPS/fb.opf', '我们仨.epub', 'file/book/da012ecd-eb1d-427f-96c9-9a20e61c978d.epub', 'file/book/unzip/908d4a65-957d-4997-8cb1-b6efbb005d8e', NULL, NULL, 1594269840897, NULL, 0);
 INSERT INTO `book` VALUES (562, '83379eae-fc99-4553-8042-efb15d2cd989', 'file/book/unzip/9f6c8a2d-f9af-4a2f-b115-48b657f76ad6/OPS/images/cover.jpg', '奈萨仪圣训集', '奈萨仪  辑录   穆萨·余崇仁  译', 'epub掌上书苑', NULL, 45, '测试分类', 'zh-CN', 'file/book/unzip/9f6c8a2d-f9af-4a2f-b115-48b657f76ad6/OPS/fb.opf', '奈萨仪圣训集(1).epub', 'file/book/83379eae-fc99-4553-8042-efb15d2cd989.epub', 'file/book/unzip/9f6c8a2d-f9af-4a2f-b115-48b657f76ad6', NULL, NULL, 1594291764936, NULL, 0);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for contents
 -- ----------------------------
 DROP TABLE IF EXISTS `contents`;
-CREATE TABLE `contents`  (
-  `fileName` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `href` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `order` int(11) NULL DEFAULT NULL,
-  `level` int(11) NULL DEFAULT NULL,
-  `text` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `label` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `pid` int(11) NOT NULL,
-  `navId` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `bookId` int(11) NOT NULL,
+CREATE TABLE `contents` (
+  `fileName` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `href` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `order` int DEFAULT NULL,
+  `level` int DEFAULT NULL,
+  `text` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `label` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `pid` int NOT NULL,
+  `navId` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `bookId` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1634 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=MyISAM AUTO_INCREMENT=1634 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of contents
 -- ----------------------------
+BEGIN;
 INSERT INTO `contents` VALUES ('8e322ffe-9024-48b3-926e-f357c666a897', 438, NULL, NULL, NULL, 'file/book/unzip/64a0014b-017b-4e94-8408-398095ddf424/text/part0000.html', '版权信息', -1, NULL, 530);
 INSERT INTO `contents` VALUES ('8e322ffe-9024-48b3-926e-f357c666a897', 439, NULL, NULL, NULL, 'file/book/unzip/64a0014b-017b-4e94-8408-398095ddf424/text/part0002.html', '序言', -1, NULL, 530);
 INSERT INTO `contents` VALUES ('8e322ffe-9024-48b3-926e-f357c666a897', 440, NULL, NULL, NULL, 'file/book/unzip/64a0014b-017b-4e94-8408-398095ddf424/text/part0003.html', '第一章 深度剖析：乐观+优势=成功', -1, NULL, 530);
@@ -1768,24 +1772,26 @@ INSERT INTO `contents` VALUES ('83379eae-fc99-4553-8042-efb15d2cd989', 1630, NUL
 INSERT INTO `contents` VALUES ('83379eae-fc99-4553-8042-efb15d2cd989', 1631, NULL, NULL, NULL, 'file/book/unzip/9f6c8a2d-f9af-4a2f-b115-48b657f76ad6/OPS/chapter30.html', '第十八篇　　两会礼篇', -1, NULL, 562);
 INSERT INTO `contents` VALUES ('83379eae-fc99-4553-8042-efb15d2cd989', 1632, NULL, NULL, NULL, 'file/book/unzip/9f6c8a2d-f9af-4a2f-b115-48b657f76ad6/OPS/chapter31.html', '第十九篇　　夜间和白天的副功篇', -1, NULL, 562);
 INSERT INTO `contents` VALUES ('83379eae-fc99-4553-8042-efb15d2cd989', 1633, NULL, NULL, NULL, 'file/book/unzip/9f6c8a2d-f9af-4a2f-b115-48b657f76ad6/OPS/chapter32.html', '第二十篇　　殡礼篇', -1, NULL, 562);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for hot_book
 -- ----------------------------
 DROP TABLE IF EXISTS `hot_book`;
-CREATE TABLE `hot_book`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `openId` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `fileName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `create_dt` bigint(15) NULL DEFAULT NULL,
+CREATE TABLE `hot_book` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `openId` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `fileName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `create_dt` bigint DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `fileName`(`fileName`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 6043 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  KEY `fileName` (`fileName`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=6043 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of hot_book
 -- ----------------------------
+BEGIN;
 INSERT INTO `hot_book` VALUES (1, 'odLQN5FNbQu2I5-S4YuRiyCsKMoQ', 'Biofuels and Sustainability', '2018_Book_BiofuelsAndSustainability', 1558865281569);
 INSERT INTO `hot_book` VALUES (2, 'odLQN5FNbQu2I5-S4YuRiyCsKMoQ', 'Higher Education in the Era of the Fourth Industrial Revolution', '2018_Book_HigherEducationInTheEraOfTheFo', 1558865296501);
 INSERT INTO `hot_book` VALUES (3, 'odLQN5FNbQu2I5-S4YuRiyCsKMoQ', 'Research On and Activities For Mathematically Gifted Students', '2016_Book_ResearchOnAndActivitiesForMath', 1558865300237);
@@ -7828,23 +7834,25 @@ INSERT INTO `hot_book` VALUES (6039, 'odLQN5JJkqjb9kRn5_pKXP8SCCMs', 'Agile Proc
 INSERT INTO `hot_book` VALUES (6040, 'odLQN5JJkqjb9kRn5_pKXP8SCCMs', 'Agile Processes, in Software Engineering, and Extreme Programming', '2016_Book_AgileProcessesInSoftwareEngine', 1573204292754);
 INSERT INTO `hot_book` VALUES (6041, 'odLQN5JJkqjb9kRn5_pKXP8SCCMs', 'Agile Processes, in Software Engineering, and Extreme Programming', '2016_Book_AgileProcessesInSoftwareEngine', 1573204297178);
 INSERT INTO `hot_book` VALUES (6042, 'odLQN5JJkqjb9kRn5_pKXP8SCCMs', '别对我说谎:练就一双精确识人眼', 'a9af0a0bbdb63517bcff57fc1542dba8', 1573204354815);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for hot_search
 -- ----------------------------
 DROP TABLE IF EXISTS `hot_search`;
-CREATE TABLE `hot_search`  (
-  `openId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `keyword` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `create_dt` bigint(15) NULL DEFAULT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `hot_search` (
+  `openId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `keyword` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `create_dt` bigint DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `keyword`(`keyword`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 445 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  KEY `keyword` (`keyword`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=445 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of hot_search
 -- ----------------------------
+BEGIN;
 INSERT INTO `hot_search` VALUES ('odLQN5FNbQu2I5-S4YuRiyCsKMoQ', 'ri', 1558865286828, 184);
 INSERT INTO `hot_search` VALUES ('odLQN5FNbQu2I5-S4YuRiyCsKMoQ', 'ghost', 1558865308661, 185);
 INSERT INTO `hot_search` VALUES ('odLQN5FNbQu2I5-S4YuRiyCsKMoQ', 'peple', 1558865313135, 186);
@@ -8106,23 +8114,477 @@ INSERT INTO `hot_search` VALUES ('odLQN5C8hM6RCT9Qdhxr4B_EpKkw', 'high school', 
 INSERT INTO `hot_search` VALUES ('odLQN5C8hM6RCT9Qdhxr4B_EpKkw', 'high school', 1572947324442, 442);
 INSERT INTO `hot_search` VALUES ('odLQN5C8hM6RCT9Qdhxr4B_EpKkw', 'high', 1572947332467, 443);
 INSERT INTO `hot_search` VALUES ('odLQN5OSGHCewmEE1kunEaE_4H_Y', '羊皮', 1573092507384, 444);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for pt_duty
+-- ----------------------------
+DROP TABLE IF EXISTS `pt_duty`;
+CREATE TABLE `pt_duty` (
+  `dutyid` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '岗位ID',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '岗位名称',
+  `organ_uuid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '组织ID',
+  `role_uuid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '角色ID',
+  PRIMARY KEY (`dutyid`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='岗位表（角色和单位的挂接）';
+
+-- ----------------------------
+-- Records of pt_duty
+-- ----------------------------
+BEGIN;
+INSERT INTO `pt_duty` VALUES ('041fe2a829e74e53842cc1eb2922f615', '普通用户会员中心', '0447da9da71a49c4acd151aa86f46888', '108c97c09b9e4454ad5f48603965f990');
+INSERT INTO `pt_duty` VALUES ('1404708b9887438a925e1e84d7f47b08', '工程部经理', '42554f47c8614d7f8da370d8c7803f4c', '26697955687792640');
+INSERT INTO `pt_duty` VALUES ('1fc333cca15347ac9f7a0cc7e22b8f08', '阳光用户会员中心', 'e1f0b7016a144ef4a9db7b534ef70f10', '108c97c09b9e4454ad5f48603965f990');
+INSERT INTO `pt_duty` VALUES ('24d09357d64b45858a739b6bd2a8407b', '总经理', '0447da9da71a49c4acd151aa86f46888', '402881f3509dd9ad01509df7c624000d');
+INSERT INTO `pt_duty` VALUES ('2d3fca8b2e3f448facc31fa5931185ab', '市场部经理', '42554f47c8614d7f8da370d8c7803f4c', '26697955687792640');
+INSERT INTO `pt_duty` VALUES ('2d6d08f4bf6141b2a6101c3b57cc3d8c', '工程部经理', '', '26697955687792640');
+INSERT INTO `pt_duty` VALUES ('56df9b34666446e28a519dff51c6f462', '总经理助理', '0447da9da71a49c4acd151aa86f46888', '402881f3509dd9ad01509df7c624000d');
+INSERT INTO `pt_duty` VALUES ('72eda3c4548d40e8aa6735e9d3295846', '总经理', '06dcb1d47ca34794aef5cde33bba5152', '26167920769892352');
+INSERT INTO `pt_duty` VALUES ('82af7a0655cc4d249df960822c89963d', '阳光用户会员中心', 'xxxxx', '402881f3509dd9ad01509df7c624000d');
+INSERT INTO `pt_duty` VALUES ('837cfb4c11814d3581bb828260b380a8', '阳光用户会员中心', 'cb58fab9422c477781f5e642e9176b3e', '402881f3509dd9ad01509df7c624000d');
+INSERT INTO `pt_duty` VALUES ('9e988e0c82974756826a9124c4681dca', '阳光用户会员中心', '06dcb1d47ca34794aef5cde33bba5152', '108c97c09b9e4454ad5f48603965f990');
+INSERT INTO `pt_duty` VALUES ('ajsdvasjhdvsajdv', '管理员', '42554f47c8614d7f8da370d8c7803f4c', 'f2cf2f624ecd488bad48373e38835edc');
+INSERT INTO `pt_duty` VALUES ('be4a9e9aeb8a4b4d920e3ef508de9a28', '武汉电厂用户会员中心', '234', '123');
+INSERT INTO `pt_duty` VALUES ('c2e6ada9bc7245289dea26d687338f8f', '研发部经理', '42554f47c8614d7f8da370d8c7803f4c', '67ef660665554ccda72561617fec021d');
+INSERT INTO `pt_duty` VALUES ('c36b529445b74b4aad515c8c4b5dd36f', '普通用户会员中心', '728e8114ff504bf8af6e9efc693b0a6c', '402881f3509db32801509db390890000');
+INSERT INTO `pt_duty` VALUES ('d1', '集团管理员', '42554f47c8614d7f8da370d8c7803f4c', '26697955687792640');
+INSERT INTO `pt_duty` VALUES ('d1a818923b79420cb5965e29ef1153ec', '武汉电厂用户会员中心', 'e1f0b7016a144ef4a9db7b534ef70f10', '402881f3509dd9ad01509df7c624000d');
+INSERT INTO `pt_duty` VALUES ('d2', '集团管理员', '42554f47c8614d7f8da370d8c7803f4a', '26167920769892352');
+INSERT INTO `pt_duty` VALUES ('d3', 'xxx', '42554f47c8614d7f8da370d8c7803f4a', 'jt');
+INSERT INTO `pt_duty` VALUES ('d4', NULL, NULL, 'a4');
+INSERT INTO `pt_duty` VALUES ('d5', NULL, NULL, 'a5');
+INSERT INTO `pt_duty` VALUES ('d8', '燃料部主任', '42554f47c8614d7f8da370d8c7803f4a', '26167920769892352');
+INSERT INTO `pt_duty` VALUES ('d9', '厂长', '42554f47c8614d7f8da370d8c7803f4a', '26167920769892352');
+INSERT INTO `pt_duty` VALUES ('dc9e45b292cf431d92d862a4867dfc84', '湖北电厂总经理', 'b86fae65f53947f485e2d02f6c8fadf1', '402881f3509dd9ad01509df7c624000d');
+INSERT INTO `pt_duty` VALUES ('e4b5b3485bc44a65b05d4aca43287a6e', '阳光用户会员中心', '9aa37116e63f48bf944749fc21424167', '402881f3509dd9ad01509df7c624000d');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for pt_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `pt_menu`;
+CREATE TABLE `pt_menu` (
+  `menu_uuid` varchar(255) NOT NULL COMMENT 'ID',
+  `parent_uuid` varchar(255) DEFAULT NULL COMMENT '上级菜单ID',
+  `sub_count` int DEFAULT '0' COMMENT '子菜单数目',
+  `type` int DEFAULT NULL COMMENT '菜单类型',
+  `title` varchar(255) DEFAULT NULL COMMENT '菜单标题',
+  `name` varchar(255) DEFAULT NULL COMMENT '组件名称',
+  `component` varchar(255) DEFAULT NULL COMMENT '组件',
+  `menu_sort` int DEFAULT NULL COMMENT '排序',
+  `icon` varchar(255) DEFAULT NULL COMMENT '图标',
+  `path` varchar(255) DEFAULT NULL COMMENT '链接地址',
+  `i_frame` bit(1) DEFAULT NULL COMMENT '是否外链',
+  `cache` bit(1) DEFAULT b'0' COMMENT '缓存',
+  `hidden` bit(1) DEFAULT b'0' COMMENT '隐藏',
+  `permission` varchar(255) DEFAULT NULL COMMENT '权限',
+  `create_by` varchar(255) DEFAULT NULL COMMENT '创建者',
+  `update_by` varchar(255) DEFAULT NULL COMMENT '更新者',
+  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`menu_uuid`) USING BTREE,
+  UNIQUE KEY `uniq_title` (`title`),
+  UNIQUE KEY `uniq_name` (`name`),
+  KEY `inx_pid` (`parent_uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单';
+
+-- ----------------------------
+-- Records of pt_menu
+-- ----------------------------
+BEGIN;
+INSERT INTO `pt_menu` VALUES ('0b8d5fef76e847df864b37d3f6509c37', '12', NULL, 0, '测试导航栏', 'bookIndex', 'book/index', NULL, NULL, '/book/index', NULL, NULL, b'0', '', NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('12', '1', 1230, 0, '图书管理', '图书管理', 'Layout', NULL, 'system', '/book', NULL, b'0', b'0', 'editor', NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('13', '1', 0, 0, '用户管理', 'ptuser', 'Layout', NULL, 'documentation', '/ptuser', NULL, b'0', b'0', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('14', '13', 0, 0, '添加用户', 'ptuserCreate', 'ptuser/create', NULL, 'edit', '/ptuser/create', NULL, b'0', b'0', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('15', '13', 0, 0, '用户列表', 'ptuserList', 'ptuser/list', NULL, 'list', '/ptuser/list', NULL, b'0', b'0', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('16', '13', 0, 0, '编辑用户', 'ptuserEdit', 'ptuser/edit', NULL, 'edit', '/ptuser/edit/:userId', NULL, b'0', b'1', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('17', '1', 0, 0, '权限管理', 'auth', 'Layout', NULL, 'documentation', '/auth', NULL, b'0', b'0', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('18', '17', 0, 0, '添加角色', 'roleCreate', 'role/create', NULL, 'edit', '/auth/role/create', NULL, b'0', b'0', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('19', '17', 0, 0, '编辑角色', 'roleEdit', 'role/edit', NULL, 'edit', '/auth/role/edit/:roleId', NULL, b'0', b'1', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('2', '12', NULL, 0, '添加图书', 'bookCreate', 'book/create', NULL, 'edit', '/book/create', NULL, b'0', b'0', 'admin', NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('20', '17', 0, 0, '角色列表', 'roleList', 'role/list', NULL, 'list', 'auth/role/list', NULL, b'0', b'0', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('21', '17', 0, 0, '添加岗位', 'dutyCreate', 'duty/create', NULL, 'edit', '/auth/duty/create', NULL, b'0', b'0', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('22', '17', 0, 0, '编辑岗位', 'dutyEdit', 'duty/edit', NULL, 'edit', '/auth/duty/edit/:dutyId', NULL, b'0', b'1', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('23', '17', 0, 0, '岗位列表', 'dutyList', 'duty/list', NULL, 'list', '/auth/duty/list', NULL, b'0', b'0', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('24', '1', 0, 0, '资源管理', 'res', 'Layout', NULL, 'documentation', '/res', NULL, b'0', b'0', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('25', '24', 0, 0, '添加资源', 'resCreate', 'res/create', NULL, 'edit', '/res/create', NULL, b'0', b'0', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('26', '24', 0, 0, '资源编辑', 'resEdit', 'res/edit', NULL, 'edit', '/res/edit/:resId', NULL, b'0', b'1', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('27', '24', 0, 0, '资源列表', 'resList', 'res/list', NULL, 'list', '/res/list', NULL, b'0', b'0', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('28', '1', 0, 0, '组织管理', 'organ', 'Layout', NULL, 'documentation', '/organ', NULL, b'0', b'0', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('29', '28', 0, 0, '添加组织', 'organCreate', 'organ/create', NULL, 'edit', '/organ/create', NULL, b'0', b'0', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('3', '12', 40, 0, '图书列表', 'bookEdit', 'book/list', NULL, 'list', '/book/list', NULL, b'0', b'0', 'admin', NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('30', '28', 0, 0, '组织编辑', 'organEdit', 'organ/edit', NULL, 'edit', '/organ/edit/:organId', NULL, b'0', b'1', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('31', '28', 0, 0, '组织列表', NULL, 'organ/list', NULL, 'list', '/organ/list', NULL, b'0', b'0', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('4', '3', 0, 0, '三级菜单-1', 'bookgh', 'book/index', NULL, 'list', '/book/list/test1', NULL, b'0', b'0', 'book:list', NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('5', '3', 0, 0, '三级菜单-2', 'bookghas', 'book/edit', NULL, 'edit', '/book/list/test2', NULL, b'0', b'0', 'book:add', NULL, NULL, NULL, NULL);
+INSERT INTO `pt_menu` VALUES ('6', '2', 1, 1, '图书添加按钮', NULL, NULL, NULL, NULL, NULL, NULL, b'0', b'0', 'book:add', NULL, NULL, NULL, NULL);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for pt_organ
+-- ----------------------------
+DROP TABLE IF EXISTS `pt_organ`;
+CREATE TABLE `pt_organ` (
+  `organ_uuid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `organ_code` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `organ_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `organ_type` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `in_use` tinyint(1) DEFAULT NULL,
+  `parent_uuid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '是否删除',
+  `modifierid` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '创建人ID',
+  `modtime` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `description` varchar(400) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '描述',
+  `account_code` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '资金账户code',
+  `shortname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `is_parent` tinyint(1) DEFAULT '0' COMMENT '  是否为父组织',
+  PRIMARY KEY (`organ_uuid`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='组织机构';
+
+-- ----------------------------
+-- Records of pt_organ
+-- ----------------------------
+BEGIN;
+INSERT INTO `pt_organ` VALUES ('0447da9da71a49c4acd151aa86f46888', '12', '湖北二厂', NULL, 0, '42554f47c8614d7f8da370d8c7803f4c', NULL, NULL, '2020-07-16 03:50:39', '123', '123', '123', NULL);
+INSERT INTO `pt_organ` VALUES ('06dcb1d47ca34794aef5cde33bba5152', 'shanghaipower', '上海电厂', NULL, 1, '42554f47c8614d7f8da370d8c7803f4c', NULL, NULL, '2020-07-16 12:49:14', '123', '123', '123', 1);
+INSERT INTO `pt_organ` VALUES ('235bafe2dabf4b2c88980c918423f3bc', '123', '葫芦岛电力分厂二厂', NULL, 1, '7016eedca6734017af9f9762352f3255', NULL, NULL, '2020-07-16 12:52:35', '', '2', '', 0);
+INSERT INTO `pt_organ` VALUES ('2771b05aeaad486ea61854f21a41744f', NULL, NULL, NULL, 1, NULL, NULL, NULL, '2020-07-13 23:30:37', NULL, NULL, NULL, 0);
+INSERT INTO `pt_organ` VALUES ('3d3adf5d0f554836b8c575a6ac88f062', '123', '山东电力集团', NULL, 1, '42554f47c8614d7f8da370d8c7803f4c', NULL, NULL, '2020-07-16 12:51:15', 'w2w', '886188', '特特发1公司', 1);
+INSERT INTO `pt_organ` VALUES ('42554f47c8614d7f8da370d8c7803f41', '55555', '酒泉公司', '2', 1, '-1', 'N', NULL, '2020-07-13 22:43:09', NULL, NULL, NULL, 1);
+INSERT INTO `pt_organ` VALUES ('42554f47c8614d7f8da370d8c7803f49', '233333', '湖北公司', '2', 1, '-1', 'N', NULL, '2020-07-13 22:43:10', NULL, NULL, NULL, 1);
+INSERT INTO `pt_organ` VALUES ('42554f47c8614d7f8da370d8c7803f4a', '111', '襄阳电厂', '3', 1, '42554f47c8614d7f8da370d8c7803f4c', 'N', NULL, '2020-07-14 20:16:43', NULL, NULL, NULL, 0);
+INSERT INTO `pt_organ` VALUES ('42554f47c8614d7f8da370d8c7803f4b', 'dddf', '宣威子电厂', '3', 1, '42554f47c8614d7f8da370d8c7803f49', 'N', NULL, '2020-07-13 22:43:10', NULL, NULL, NULL, 0);
+INSERT INTO `pt_organ` VALUES ('42554f47c8614d7f8da370d8c7803f4c', '12334444', '国电总公司', '2', 1, '80143d593a154ff4be60bf5b0ce77036', 'N', NULL, '2020-07-16 12:43:18', '国电总公司，是国电集团总部', '8886666', '国电', 1);
+INSERT INTO `pt_organ` VALUES ('42554f47c8614d7f8da370d8c7803f4d', 'sddsdsd', '山东公司', '2', 1, '-1', 'N', NULL, '2020-07-13 22:43:10', NULL, NULL, NULL, 1);
+INSERT INTO `pt_organ` VALUES ('42554f47c8614d7f8da370d8c7803f4e', 'xx', '宣威子电厂2', '1', 1, '42554f47c8614d7f8da370d8c7803f49', 'N', NULL, '2020-07-14 20:33:25', NULL, NULL, NULL, 0);
+INSERT INTO `pt_organ` VALUES ('7016eedca6734017af9f9762352f3255', '123', '葫芦岛电厂', '1', 1, '3d3adf5d0f554836b8c575a6ac88f062', NULL, NULL, '2020-07-16 12:51:54', '', '123', '', 1);
+INSERT INTO `pt_organ` VALUES ('728e8114ff504bf8af6e9efc693b0a69', 'dwxia', 'isoftone', '1', 1, 'outerroot', 'N', NULL, '2020-07-14 20:33:25', NULL, NULL, 'isoft', 0);
+INSERT INTO `pt_organ` VALUES ('897742be37e64cbe87eb1e13bdae9811', '897742be37e64cbe87eb1e13bdae9811', '普通供应商', '1', 1, 'outerroot', 'N', NULL, '2020-07-14 20:33:25', NULL, NULL, '普商', 0);
+INSERT INTO `pt_organ` VALUES ('9aa37116e63f48bf944749fc21424167', 'qwe3', 'xxxxdsdsd', '1', 1, 'outerroot', 'N', NULL, '2020-07-14 20:33:25', NULL, NULL, 'asdasdasdsad', 0);
+INSERT INTO `pt_organ` VALUES ('a244df3ed5634d7b87f1db94310b73b8', NULL, NULL, '1', 1, '-1', NULL, NULL, '2020-07-14 20:33:25', NULL, NULL, NULL, 1);
+INSERT INTO `pt_organ` VALUES ('e1f0b7016a144ef4a9db7b534ef70f10', '111111111', '娃哈哈', '1', 1, 'outerroot', 'N', NULL, '2020-07-14 20:33:26', NULL, NULL, '娃哈哈', 0);
+INSERT INTO `pt_organ` VALUES ('ed55080e3a6c472b8972be29c14e0d15', '123', '武汉电厂', NULL, NULL, 'f209be1e7156405fbc792cd23c5dcc36', NULL, NULL, '2020-07-16 12:50:22', '132', '123', '123', NULL);
+INSERT INTO `pt_organ` VALUES ('eyewugddusdusgdyf', NULL, NULL, '1', 1, NULL, NULL, NULL, '2020-07-14 20:33:26', NULL, NULL, NULL, 1);
+INSERT INTO `pt_organ` VALUES ('f209be1e7156405fbc792cd23c5dcc36', '46', '湖北电厂', NULL, 1, '42554f47c8614d7f8da370d8c7803f4c', NULL, NULL, '2020-07-16 03:36:49', '阿斯顿', '46', '是', 0);
+INSERT INTO `pt_organ` VALUES ('mmmmmmm', '123445', '雪豹电厂', '1', 1, '42554f47c8614d7f8da370d8c7803f4c', 'N', NULL, '2020-07-14 20:33:26', NULL, NULL, NULL, 0);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for pt_res
+-- ----------------------------
+DROP TABLE IF EXISTS `pt_res`;
+CREATE TABLE `pt_res` (
+  `res_uuid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '菜单类别id',
+  `res_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `res_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `res_url` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `res_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `parent_uuid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `order` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`res_uuid`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='资源表';
+
+-- ----------------------------
+-- Records of pt_res
+-- ----------------------------
+BEGIN;
+INSERT INTO `pt_res` VALUES ('0231d8e134604286a7a69ef700e6a592', NULL, NULL, '用户管理', '123', '23', '123', NULL);
+INSERT INTO `pt_res` VALUES ('0b36d370f5b541ecb8f2d5ba8331cfc8', NULL, NULL, '添加岗位', '123', '', 'ce8a7fdec7ae4af3ae8a6532a0d2b848', NULL);
+INSERT INTO `pt_res` VALUES ('1', NULL, NULL, NULL, 't', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('10', NULL, NULL, NULL, 't', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('11', NULL, NULL, NULL, 't', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('12', NULL, NULL, NULL, 't', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('123', NULL, NULL, 'Root', '123', NULL, '8', NULL);
+INSERT INTO `pt_res` VALUES ('124', NULL, NULL, '权限管理', '124', NULL, '123', NULL);
+INSERT INTO `pt_res` VALUES ('125', NULL, NULL, '资源管理', '125', NULL, '123', NULL);
+INSERT INTO `pt_res` VALUES ('13', NULL, NULL, NULL, 'u', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('14', NULL, NULL, NULL, 'u', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('15', NULL, NULL, NULL, 't', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('16', NULL, NULL, NULL, '/registerobjectmanage.jspx', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('17', NULL, NULL, NULL, 't', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('18', NULL, NULL, NULL, '/createFultbpurchInfo.jspx', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('19', NULL, NULL, NULL, '/fultbpurchCheckList.jspx', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('1b272a294aed47c48df962aea3be8288', NULL, NULL, '组织管理', '123', '', '123', NULL);
+INSERT INTO `pt_res` VALUES ('2', NULL, NULL, NULL, 't', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('20', NULL, NULL, NULL, '/fultbpurchCheckList.jspx', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('29', NULL, NULL, NULL, 't', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('3', NULL, NULL, NULL, 't', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('30', NULL, NULL, NULL, '/supplylist_fen.jspx', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('31', NULL, NULL, NULL, '/supplypendingapprovallist_fen.jspx', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('32', NULL, NULL, NULL, '/dianchangapplylist_fen.jspx', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('33', NULL, NULL, NULL, 'e', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('37', NULL, NULL, NULL, '/supplylist.jspx', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('38', NULL, NULL, NULL, '/supplypendingapprovallist.jspx', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('3b6ec9610b0e4e68b64943ddab2800b3', NULL, NULL, '添加组织', '123', '', '1b272a294aed47c48df962aea3be8288', NULL);
+INSERT INTO `pt_res` VALUES ('3db7da16ff2040c5b3ace74d8cddeef5', NULL, NULL, '添加角色', '123', '', '93406e4922b344828a541ea0d0ccf95d', NULL);
+INSERT INTO `pt_res` VALUES ('4', NULL, NULL, NULL, 't', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('40', NULL, NULL, NULL, 'k', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('44', NULL, NULL, NULL, 'm', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('5', NULL, NULL, NULL, 'e', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('6', NULL, NULL, NULL, 'a', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('7', NULL, NULL, NULL, 'b', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('753b007f6e4b4c83b5cd0693f1095928', NULL, NULL, '岗位列表', '123', '', 'ce8a7fdec7ae4af3ae8a6532a0d2b848', NULL);
+INSERT INTO `pt_res` VALUES ('8', NULL, NULL, '8', '8', NULL, NULL, NULL);
+INSERT INTO `pt_res` VALUES ('8faa411a025b4bcdb092ba3442b9b942', NULL, NULL, '添加资源', 'ww', '88688', '125', NULL);
+INSERT INTO `pt_res` VALUES ('93406e4922b344828a541ea0d0ccf95d', NULL, NULL, '角色管理', '123', '', '124', NULL);
+INSERT INTO `pt_res` VALUES ('9a6ac78d017140859a44b607a59d7310', NULL, NULL, '角色列表', '123', '', '93406e4922b344828a541ea0d0ccf95d', NULL);
+INSERT INTO `pt_res` VALUES ('a8309913bdc945c6858d35f6485452c4', NULL, NULL, '添加用户', '123', '', '0231d8e134604286a7a69ef700e6a592', NULL);
+INSERT INTO `pt_res` VALUES ('baf8980f12c343fbba1fcfd672168126', NULL, NULL, '编辑岗位', '123', '', 'ce8a7fdec7ae4af3ae8a6532a0d2b848', NULL);
+INSERT INTO `pt_res` VALUES ('c5c5f897943d4c46a260d10e194e31a3', NULL, NULL, '编辑组织', '123', '', '1b272a294aed47c48df962aea3be8288', NULL);
+INSERT INTO `pt_res` VALUES ('c6e20f7ec62646b69f9450717a24cc82', NULL, NULL, '用户列表', '123', '', '0231d8e134604286a7a69ef700e6a592', NULL);
+INSERT INTO `pt_res` VALUES ('ce8a7fdec7ae4af3ae8a6532a0d2b848', NULL, NULL, '岗位管理', '123', '', '124', NULL);
+INSERT INTO `pt_res` VALUES ('cfc87228194f49a9a40e03b54c88609d', NULL, NULL, '编辑角色', '123', '', '93406e4922b344828a541ea0d0ccf95d', NULL);
+INSERT INTO `pt_res` VALUES ('d2ca3bbd9fce40a8a9317ac88ca5f614', NULL, NULL, '组织列表', '123', '', '1b272a294aed47c48df962aea3be8288', NULL);
+INSERT INTO `pt_res` VALUES ('d79491342d6146fbb283e38f980e33bb', NULL, NULL, '编辑用户', '123', '', '0231d8e134604286a7a69ef700e6a592', NULL);
+INSERT INTO `pt_res` VALUES ('efdbcc1ca89d4dcb8e60201c3d9e7bde', NULL, NULL, '编辑资源', '123', '', '125', NULL);
+INSERT INTO `pt_res` VALUES ('f0bd4fcaf6e2406f8b899674750f8982', NULL, NULL, '资源列表', '123', '', '125', NULL);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for pt_role
+-- ----------------------------
+DROP TABLE IF EXISTS `pt_role`;
+CREATE TABLE `pt_role` (
+  `role_uuid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `role_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `role_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`role_uuid`) USING BTREE,
+  KEY `ak_key_2` (`role_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色';
+
+-- ----------------------------
+-- Records of pt_role
+-- ----------------------------
+BEGIN;
+INSERT INTO `pt_role` VALUES ('108c97c09b9e4454ad5f48603965f990', '10121', '普通用户');
+INSERT INTO `pt_role` VALUES ('1db61674088142829d9d81d28bbbebc7', '123', '123');
+INSERT INTO `pt_role` VALUES ('26167920769892352', 'xxx', '电厂审核供应商管理员');
+INSERT INTO `pt_role` VALUES ('26697955687792640', 'qqq', '分公司审核供应商管理员');
+INSERT INTO `pt_role` VALUES ('402881f3509dd9ad01509df7c624000d', '123', '阳光用户会员中心');
+INSERT INTO `pt_role` VALUES ('f2cf2f624ecd488bad48373e38835edc', '123', '电小二');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for pt_role_res
+-- ----------------------------
+DROP TABLE IF EXISTS `pt_role_res`;
+CREATE TABLE `pt_role_res` (
+  `role_uuid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `res_uuid` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '菜单目录id（树型结构层级编码）',
+  PRIMARY KEY (`role_uuid`,`res_uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色资源配置';
+
+-- ----------------------------
+-- Records of pt_role_res
+-- ----------------------------
+BEGIN;
+INSERT INTO `pt_role_res` VALUES ('111', '1');
+INSERT INTO `pt_role_res` VALUES ('111', '2');
+INSERT INTO `pt_role_res` VALUES ('26167920769892352', '0231d8e134604286a7a69ef700e6a592');
+INSERT INTO `pt_role_res` VALUES ('26167920769892352', '123');
+INSERT INTO `pt_role_res` VALUES ('26167920769892352', '125');
+INSERT INTO `pt_role_res` VALUES ('26167920769892352', 'a8309913bdc945c6858d35f6485452c4');
+INSERT INTO `pt_role_res` VALUES ('26167920769892352', 'c6e20f7ec62646b69f9450717a24cc82');
+INSERT INTO `pt_role_res` VALUES ('26167920769892352', 'd79491342d6146fbb283e38f980e33bb');
+INSERT INTO `pt_role_res` VALUES ('26697955687792640', '124');
+INSERT INTO `pt_role_res` VALUES ('26697955687792640', '3db7da16ff2040c5b3ace74d8cddeef5');
+INSERT INTO `pt_role_res` VALUES ('26697955687792640', '93406e4922b344828a541ea0d0ccf95d');
+INSERT INTO `pt_role_res` VALUES ('26697955687792640', '9a6ac78d017140859a44b607a59d7310');
+INSERT INTO `pt_role_res` VALUES ('26697955687792640', 'cfc87228194f49a9a40e03b54c88609d');
+INSERT INTO `pt_role_res` VALUES ('402881f3509dd9ad01509df7c624000d', '125');
+INSERT INTO `pt_role_res` VALUES ('402881f3509dd9ad01509df7c624000d', '8faa411a025b4bcdb092ba3442b9b942');
+INSERT INTO `pt_role_res` VALUES ('402881f3509dd9ad01509df7c624000d', 'efdbcc1ca89d4dcb8e60201c3d9e7bde');
+INSERT INTO `pt_role_res` VALUES ('402881f3509dd9ad01509df7c624000d', 'f0bd4fcaf6e2406f8b899674750f8982');
+INSERT INTO `pt_role_res` VALUES ('dc', '17');
+INSERT INTO `pt_role_res` VALUES ('dc', '18');
+INSERT INTO `pt_role_res` VALUES ('dc', '19');
+INSERT INTO `pt_role_res` VALUES ('dc', '20');
+INSERT INTO `pt_role_res` VALUES ('dc', '37');
+INSERT INTO `pt_role_res` VALUES ('dc', '40');
+INSERT INTO `pt_role_res` VALUES ('dc', '44');
+INSERT INTO `pt_role_res` VALUES ('f2cf2f624ecd488bad48373e38835edc', '123');
+INSERT INTO `pt_role_res` VALUES ('f2cf2f624ecd488bad48373e38835edc', '1b272a294aed47c48df962aea3be8288');
+INSERT INTO `pt_role_res` VALUES ('f2cf2f624ecd488bad48373e38835edc', '3b6ec9610b0e4e68b64943ddab2800b3');
+INSERT INTO `pt_role_res` VALUES ('f2cf2f624ecd488bad48373e38835edc', 'c5c5f897943d4c46a260d10e194e31a3');
+INSERT INTO `pt_role_res` VALUES ('f2cf2f624ecd488bad48373e38835edc', 'd2ca3bbd9fce40a8a9317ac88ca5f614');
+INSERT INTO `pt_role_res` VALUES ('fgs', '30');
+INSERT INTO `pt_role_res` VALUES ('fgs', '31');
+INSERT INTO `pt_role_res` VALUES ('fgs', '32');
+INSERT INTO `pt_role_res` VALUES ('fgs', '33');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for pt_roles_menus
+-- ----------------------------
+DROP TABLE IF EXISTS `pt_roles_menus`;
+CREATE TABLE `pt_roles_menus` (
+  `role_uuid` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `menu_uuid` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  PRIMARY KEY (`role_uuid`,`menu_uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+
+-- ----------------------------
+-- Records of pt_roles_menus
+-- ----------------------------
+BEGIN;
+INSERT INTO `pt_roles_menus` VALUES ('108c97c09b9e4454ad5f48603965f990', '0b8d5fef76e847df864b37d3f6509c37');
+INSERT INTO `pt_roles_menus` VALUES ('108c97c09b9e4454ad5f48603965f990', '12');
+INSERT INTO `pt_roles_menus` VALUES ('108c97c09b9e4454ad5f48603965f990', '13');
+INSERT INTO `pt_roles_menus` VALUES ('108c97c09b9e4454ad5f48603965f990', '14');
+INSERT INTO `pt_roles_menus` VALUES ('108c97c09b9e4454ad5f48603965f990', '15');
+INSERT INTO `pt_roles_menus` VALUES ('108c97c09b9e4454ad5f48603965f990', '16');
+INSERT INTO `pt_roles_menus` VALUES ('108c97c09b9e4454ad5f48603965f990', '2');
+INSERT INTO `pt_roles_menus` VALUES ('108c97c09b9e4454ad5f48603965f990', '3');
+INSERT INTO `pt_roles_menus` VALUES ('108c97c09b9e4454ad5f48603965f990', '4');
+INSERT INTO `pt_roles_menus` VALUES ('108c97c09b9e4454ad5f48603965f990', '5');
+INSERT INTO `pt_roles_menus` VALUES ('108c97c09b9e4454ad5f48603965f990', '6');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '12');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '13');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '14');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '15');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '16');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '17');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '18');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '19');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '2');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '20');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '21');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '22');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '23');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '24');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '25');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '26');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '27');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '28');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '29');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '3');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '30');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '31');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '4');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '5');
+INSERT INTO `pt_roles_menus` VALUES ('f2cf2f624ecd488bad48373e38835edc', '6');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for pt_user
+-- ----------------------------
+DROP TABLE IF EXISTS `pt_user`;
+CREATE TABLE `pt_user` (
+  `user_uuid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `username` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '登录名',
+  `password` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '密码',
+  `email` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `mobile` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `enabled` decimal(1,0) DEFAULT NULL,
+  `account_non_expired` decimal(1,0) DEFAULT NULL,
+  `credentials_non_expired` decimal(1,0) DEFAULT NULL,
+  `account_non_locked` decimal(1,0) DEFAULT NULL,
+  `organ_uuid` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '机构ID',
+  `nice_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '姓名',
+  `is_admin` tinyint(1) DEFAULT '0',
+  `maximumsessions` decimal(1,0) DEFAULT '1' COMMENT '1',
+  `registerdate` datetime DEFAULT NULL COMMENT '注册日期',
+  `lastlogintime` datetime DEFAULT NULL COMMENT '最近登陆时间',
+  `pwdque` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '密保问题',
+  `pwdans` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '密保答案',
+  `remark` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '备注',
+  `depid` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '部门ID',
+  `status` tinyint(1) DEFAULT NULL COMMENT '是否删除',
+  `modtime` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '操作时间',
+  `modifierid` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '操作人ID',
+  `is_sum` tinyint(1) DEFAULT NULL COMMENT '是否阳光用户（0否1是）',
+  `duty_uuid` varchar(64) DEFAULT NULL COMMENT '岗位Id',
+  `avatar_name` varchar(64) DEFAULT NULL,
+  `avatar_path` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`user_uuid`,`username`) USING BTREE,
+  KEY `ak_key_2` (`username`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户';
+
+-- ----------------------------
+-- Records of pt_user
+-- ----------------------------
+BEGIN;
+INSERT INTO `pt_user` VALUES ('1', NULL, 'platform', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, 'gd', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('124cf52906e140a58ed745001af9fbb6', NULL, 'qqq1234', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, 'organUuid', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, 'dutyUuid', NULL, NULL);
+INSERT INTO `pt_user` VALUES ('1509be3792114dfd9fded194ed35f9e7', NULL, 'mmm3', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, '897742be37e64cbe87eb1e13bdae9811', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('1a917a2fc0894f788e121d2d559337e5', NULL, 'qqq12345', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('1cedc425b6764341b476f6b3b1c5d40a', NULL, 'mmm', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('1dff6d6222c5434c930af60ab252409f', NULL, 'yyyy', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, '60b699594e044f999d502a2cb1e2f0a7', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('1e4da44293994c1a897921f0132127cd', NULL, 'qqq123', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('233fb1faca80422ba945da394ed62fe4', NULL, '123', '123', '123', '123', NULL, NULL, NULL, NULL, '42554f47c8614d7f8da370d8c7803f4c', '123', 0, NULL, NULL, NULL, NULL, NULL, '123', NULL, 0, '2020-07-18 22:48:56', NULL, NULL, 'd1', NULL, NULL);
+INSERT INTO `pt_user` VALUES ('24b37a4b02834a6194dba49baf9cb5ac', NULL, 'qqqq', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('26167920769892358', NULL, 'zhouzuo', 'e10adc3949ba59abbe56e057f20f883e', '111', '', NULL, NULL, NULL, NULL, '42554f47c8614d7f8da370d8c7803f4a', '', 0, 1, NULL, NULL, '', '', '', NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('29fc566e9bdc4612bccb511d2e5dd6fc', NULL, 'qwe1', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, 'cb58fab9422c477781f5e642e9176b3e', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('2a1dd11aa5e24cb8a6f66ff1f872615b', NULL, 'test', '1111ws', '1394260116@qq.com', '13720367471', NULL, NULL, NULL, NULL, '0447da9da71a49c4acd151aa86f46888', '滑小稽', NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '2020-07-19 21:55:33', NULL, NULL, '041fe2a829e74e53842cc1eb2922f615', NULL, NULL);
+INSERT INTO `pt_user` VALUES ('32a108aca9be495187db950971c19a47', NULL, 'zhuren', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, '42554f47c8614d7f8da370d8c7803f4a', '陈主任', 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('34', NULL, 'xiadewang', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, '42554f47c8614d7f8da370d8c7803f4a', '夏德旺', 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('36860a4a673d43818e70b69dedbe92f8', NULL, 'changzhang', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, '42554f47c8614d7f8da370d8c7803f4a', '刘厂长', 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('3c3ba97c8d284d09a94876c5f73ec20b', NULL, 'sumtest2', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('41b62da1b3af4ad6adf65d9ce6511847', NULL, 'xxxx123', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('424b601c3dfd4518a6d8997100f18e61', NULL, '张三', '企鹅', '1394260116@qq.com', '10086', NULL, NULL, NULL, NULL, '0447da9da71a49c4acd151aa86f46888', '张三', 0, NULL, NULL, NULL, NULL, NULL, 'remark', NULL, 1, '2020-07-18 22:48:40', NULL, NULL, '24d09357d64b45858a739b6bd2a8407b', NULL, NULL);
+INSERT INTO `pt_user` VALUES ('439caf4813244e23a9d5814d678921c6', NULL, 'qq12', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('4903d06cc0d34d7e9f9590b4c9b1507d', NULL, '34', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, '728e8114ff504bf8af6e9efc693b0a69', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('49d467611df74e6ab82a1f925e01df8c', NULL, 'qwe12345', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('4d1b7c0bfb8f4617af20dab0d1ee68fe', NULL, 'abcd123', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('544fee22cf354716bab0db3af8e41dd7', NULL, '962026506', '1147f6f8b1355ff1a190c53869cc5f78', NULL, NULL, NULL, NULL, NULL, NULL, 'e1f0b7016a144ef4a9db7b534ef70f10', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('5a47531497174db887bc6d9f00f4cec8', NULL, 'sumtest1', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, 1, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('5c553702d3984f00ac960a3ed2cba0a5', NULL, 'dwdw', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('5e37a8dda6bd4c9e890fdbbbd027d762', NULL, 'mm2', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, '7e97f8a47065450dac36709c513f271e', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('60d91b6aaa064262837c9e177875b176', NULL, 'qwer1234', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('622f23ef47d944e2ac326a5345d3481e', NULL, 'qqq2', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, 'xxxxx', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('6828054f11f6468e933d30191e175652', NULL, 'mmm1', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, 'ee63bc2d62a54942bde351360c1e55b6', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('6a8d0991d3da43b9acb51ec89e1dfd7f', NULL, 'sd12', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('6ed7af3d071e404b8213e02c1aa75441', NULL, '23', '23', '23', '23', NULL, NULL, NULL, NULL, '42554f47c8614d7f8da370d8c7803f4c', '23', 0, NULL, NULL, NULL, NULL, NULL, '23', NULL, 1, '2020-07-18 22:48:56', NULL, NULL, 'd1', NULL, NULL);
+INSERT INTO `pt_user` VALUES ('85db9f2c005c4e59b482ff2992098152', NULL, 'qqq1', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('8ce9b56c745740918fdceef91069870b', NULL, 'ptgys', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, '728e8114ff504bf8af6e9efc693b0a6c', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('8e52a313d1bb4dcaa7d28800f98e4d3f', NULL, 'asds', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('9605b5e28da24e9a9607dfd65f5f8bb7', NULL, 'wwww', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('9a1f2aaa426b4bb9b005bf536a937198', NULL, 'qwer1', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('9a991a0cecd74eafa52ebcfad7b79510', NULL, '请问', '请问', '问', '恶趣味', NULL, NULL, NULL, NULL, '0447da9da71a49c4acd151aa86f46888', '小康', 0, NULL, NULL, NULL, NULL, NULL, '问', NULL, NULL, '2020-07-18 22:48:40', NULL, NULL, '56df9b34666446e28a519dff51c6f462', NULL, NULL);
+INSERT INTO `pt_user` VALUES ('9bd981e4fb594527a62c8e0eb64964e4', NULL, '小康', '123', '1394260116@aa.com', '13720367471', NULL, NULL, NULL, NULL, '0447da9da71a49c4acd151aa86f46888', '小康', 0, NULL, NULL, NULL, NULL, NULL, '123', NULL, 1, '2020-07-18 22:48:40', NULL, NULL, '56df9b34666446e28a519dff51c6f462', NULL, NULL);
+INSERT INTO `pt_user` VALUES ('9fd0b0e0e64349a5b6eca33da65c8a00', NULL, 'mmm2', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, 'e65522a14ed64552b1083e602f7365b6', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('a2b6bc55bc0a4a3c9e50c18790ea3845', NULL, 'www123', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('a3c4b1b7e854447893929d81530ae2bd', NULL, 'xxx', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, '728e8114ff504bf8af6e9efc693b0a69', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('a82205053d6449bb8ef7e71ae5bdf4c6', NULL, 'fgs', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, '42554f47c8614d7f8da370d8c7803f4c', '张三', 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('ab8483a852544551aef1663bcaf54ff8', NULL, 'dwa', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('admin', NULL, 'admin', '1111', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-07-19 09:28:33', NULL, NULL, 'ajsdvasjhdvsajdv', 'xxx', 'xxx');
+INSERT INTO `pt_user` VALUES ('b3b146e945734c36a0f01638d1e6a00e', NULL, 'Qwer1235555', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('b938e369451543039c99e92ff3676587', NULL, 'mmmnn', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, 'ba0f3cc5f4e345dcba995e10b4d78646', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('bc13e7e0de434929a8cb5bda0b21429e', NULL, 'gys', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, '728e8114ff504bf8af6e9efc693b0a69', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('c0306d814b834195b18e673468a8d74f', NULL, '姜小白', '姜小白', '姜小白', '姜小白', NULL, NULL, NULL, NULL, '42554f47c8614d7f8da370d8c7803f4c', '姜小白', 0, NULL, NULL, NULL, NULL, NULL, '姜小白', NULL, 0, '2020-07-18 22:48:40', NULL, NULL, 'd1', NULL, NULL);
+INSERT INTO `pt_user` VALUES ('c4558650ae6d4b84a2b5dac45a5666d2', NULL, 'TYyyy', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, '32b4b26554d6421b9ef7c134bf7f7b9c', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('c534bafb90cd4e95947c91bc36493d12', NULL, 'sumtest02', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('d1f467f956e043da9a4efb8300e8b370', NULL, 'ttttt', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, '58ab4c1c28354ec79a03c00d366f64ff', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('e3e440a92c564e30b19cff13be009e4c', NULL, 'asdasdasd', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, '74fc6c1133ca49a290fb27203039d10c', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('e62b3c4e9d3b48b2997ad7df4a6ef5e7', NULL, 'qwe', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('eac49f1af0d149398abeb0f76350c354', NULL, 'qwe2', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, '6fcca1bd0d5147d491b3f21509d0a5c9', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('ee56442c8e0d431381a811c40fccd9f8', NULL, 'qq123', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('f0e466c7290848568982c8975c7b3fdb', NULL, 'ppp', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, '728e8114ff504bf8af6e9efc693b0a69', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('f2d133dfb3a04503920330b6a9332265', NULL, 'sumtest3', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('fa3a37993c9849fbab3e974132eb2a80', NULL, 'ddd', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, '5f7fcfc9a19a436c974fbfdc8ef03ce5', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:56', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('facda6f5aff646c0913a8e59aa7e6815', NULL, 'tt123', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2020-07-18 22:48:40', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `pt_user` VALUES ('fc9efb6e80954379880570347e6d4afd', NULL, '1', '1', '1', '1', NULL, NULL, NULL, NULL, '42554f47c8614d7f8da370d8c7803f4c', '1', 0, NULL, NULL, NULL, NULL, NULL, '1', NULL, 1, '2020-07-18 22:48:56', NULL, NULL, '', NULL, NULL);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for rank
 -- ----------------------------
 DROP TABLE IF EXISTS `rank`;
-CREATE TABLE `rank`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fileName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `openId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `rank` int(2) NULL DEFAULT NULL,
-  `create_dt` bigint(15) NULL DEFAULT NULL,
+CREATE TABLE `rank` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `fileName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `openId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `rank` int DEFAULT NULL,
+  `create_dt` bigint DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 559 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=MyISAM AUTO_INCREMENT=559 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of rank
 -- ----------------------------
+BEGIN;
 INSERT INTO `rank` VALUES (1, '2018_Book_ApplyingTheKaizenInAfrica', 'odLQN5FNbQu2I5-S4YuRiyCsKMoQ', 5, 1558883959686);
 INSERT INTO `rank` VALUES (2, '2018_Book_ApplyingTheKaizenInAfrica', '1111', 5, 1558881169651);
 INSERT INTO `rank` VALUES (3, '2018_Book_ApplyingTheKaizenInAfrica', '2222', 5, 1558881169651);
@@ -8681,21 +9143,23 @@ INSERT INTO `rank` VALUES (555, '2018_Book_NicotinicAcetylcholineReceptor', 'odL
 INSERT INTO `rank` VALUES (556, '2018_Book_NicotinicAcetylcholineReceptor', 'odLQN5JJkqjb9kRn5_pKXP8SCCMs', 2, 1573204250948);
 INSERT INTO `rank` VALUES (557, '2018_Book_NicotinicAcetylcholineReceptor', 'odLQN5JJkqjb9kRn5_pKXP8SCCMs', 2, 1573204250948);
 INSERT INTO `rank` VALUES (558, '2016_Book_AgileProcessesInSoftwareEngine', 'odLQN5JJkqjb9kRn5_pKXP8SCCMs', 4, 1573204296768);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for shelf
 -- ----------------------------
 DROP TABLE IF EXISTS `shelf`;
-CREATE TABLE `shelf`  (
+CREATE TABLE `shelf` (
   `fileName` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `openId` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `date` bigint(20) NULL DEFAULT NULL,
-  PRIMARY KEY (`openId`, `fileName`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  `date` bigint DEFAULT NULL,
+  PRIMARY KEY (`openId`,`fileName`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of shelf
 -- ----------------------------
+BEGIN;
 INSERT INTO `shelf` VALUES ('2016_Book_AgileProcessesInSoftwareEngine', 'odLQN5Hr2ZuTAbpShIYoOpmrRK54', 1561359700324);
 INSERT INTO `shelf` VALUES ('2018_Book_ZukunftDerArbeitEinePraxisnahe', 'odLQN5FNbQu2I5-S4YuRiyCsKMoQ', 1558369242086);
 INSERT INTO `shelf` VALUES ('2018_Book_EducationAndSkillsForInclusive', 'odLQN5LZEyjqn_ZdGa76LQM8yM9Q', 1560093667131);
@@ -9195,22 +9659,24 @@ INSERT INTO `shelf` VALUES ('2016_Book_TheChallengeOfChance', 'oDUmI5OKJcQqwQLpF
 INSERT INTO `shelf` VALUES ('2018_Book_VocationalTeacherEducationInCe', 'oDUmI5OKJcQqwQLpFzxNB30Draps', 1573091172933);
 INSERT INTO `shelf` VALUES ('2016_Book_DissectingTheCriminalCorpse', 'odLQN5C9XY-xiMG3FClo6ct-Phqg', 1573020939842);
 INSERT INTO `shelf` VALUES ('2018_Book_CompetitionAuthoritiesInSouthE', 'odLQN5NHc0UXapMzZ4SbAqzXhvmU', 1573024624705);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for sign
 -- ----------------------------
 DROP TABLE IF EXISTS `sign`;
-CREATE TABLE `sign`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sign` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `openId` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `create_dt` bigint(15) NOT NULL,
+  `create_dt` bigint NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `openId`(`openId`, `create_dt`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 502 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  UNIQUE KEY `openId` (`openId`,`create_dt`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=502 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of sign
 -- ----------------------------
+BEGIN;
 INSERT INTO `sign` VALUES (2, 'odLQN5FNbQu2I5-S4YuRiyCsKMoQ', 1559318399966);
 INSERT INTO `sign` VALUES (1, 'odLQN5FNbQu2I5-S4YuRiyCsKMoQ', 1559231999966);
 INSERT INTO `sign` VALUES (3, 'odLQN5FNbQu2I5-S4YuRiyCsKMoQ', 1559404799966);
@@ -9704,32 +10170,34 @@ INSERT INTO `sign` VALUES (498, 'odLQN5MW96V34EmXkgwRXU3Ya5XQ', 1573114660472);
 INSERT INTO `sign` VALUES (499, 'odLQN5CngLSVFbFDFg9-LRhsVr8Y', 1573188991905);
 INSERT INTO `sign` VALUES (500, 'odLQN5PlRhJAnezyYn0FBdd3tznE', 1573192179565);
 INSERT INTO `sign` VALUES (501, 'odLQN5JJkqjb9kRn5_pKXP8SCCMs', 1573204331412);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `openId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `avatarUrl` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `city` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `country` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `gender` int(1) NULL DEFAULT NULL,
-  `language` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `nickName` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `province` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `create_dt` bigint(15) NULL DEFAULT NULL,
-  `update_dt` bigint(15) NULL DEFAULT NULL,
-  `platform` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `avatarUrl` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `city` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `country` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `gender` int DEFAULT NULL,
+  `language` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `nickName` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `province` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `create_dt` bigint DEFAULT NULL,
+  `update_dt` bigint DEFAULT NULL,
+  `platform` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `user_openId`(`openId`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 916 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  UNIQUE KEY `user_openId` (`openId`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=916 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+BEGIN;
 INSERT INTO `user` VALUES (5, '1111', 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3627762979,343242720&fm=26&gp=0.jpg', NULL, NULL, NULL, NULL, '夏小一', NULL, NULL, NULL, 'wx', NULL);
 INSERT INTO `user` VALUES (6, '2222', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558879364419&di=5afdf69938b3f5fe1b23de34ad932919&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fblog%2F201307%2F29%2F20130729185848_EPksn.thumb.700_0.jpeg', NULL, NULL, NULL, NULL, '夏小二', NULL, NULL, NULL, 'wx', NULL);
 INSERT INTO `user` VALUES (7, '3333', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559474099&di=4f031bf15b1433f8987af50861173c25&imgtype=jpg&er=1&src=http%3A%2F%2Fimg5q.duitang.com%2Fuploads%2Fblog%2F201307%2F29%2F20130729190043_v2SU8.thumb.700_0.jpeg', NULL, NULL, NULL, NULL, '夏小三', NULL, NULL, NULL, 'wx', NULL);
@@ -9738,6 +10206,7 @@ INSERT INTO `user` VALUES (9, '5555', 'https://timgsa.baidu.com/timg?image&quali
 INSERT INTO `user` VALUES (10, '6666', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558879414672&di=115fb66809c2d39f7fcc17824ed872a4&imgtype=0&src=http%3A%2F%2Fimg.duoziwang.com%2F2016%2F10%2F05%2F2025006696.jpg', NULL, NULL, NULL, NULL, '夏小六', NULL, NULL, NULL, 'wx', NULL);
 INSERT INTO `user` VALUES (11, '7777', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559474147&di=4b444abbbe0f22a8e0e40e0b9c706244&imgtype=jpg&er=1&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Fb2c1740a81fd05e7bfb6baf1ba88bf20982da25cb9cd-YWeaM7_fw658', NULL, NULL, NULL, NULL, '夏小七', NULL, NULL, NULL, 'wx', NULL);
 INSERT INTO `user` VALUES (12, '8888', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558879441491&di=ff28c284ad1a1c3a2b8535040ea15506&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201212%2F24%2F20121224182211_TjGem.jpeg', NULL, NULL, NULL, NULL, '夏小八', NULL, NULL, NULL, 'wx', NULL);
+COMMIT;
 
 -- ----------------------------
 -- View structure for category
@@ -9762,5 +10231,65 @@ CREATE ALGORITHM = UNDEFINED SQL SECURITY INVOKER VIEW `hot_book_order` AS selec
 -- ----------------------------
 DROP VIEW IF EXISTS `hot_search_order`;
 CREATE ALGORITHM = UNDEFINED SQL SECURITY INVOKER VIEW `hot_search_order` AS select count(0) AS `num`,`hot_search`.`keyword` AS `keyword` from `hot_search` group by `hot_search`.`keyword` order by count(0) desc;
+
+-- ----------------------------
+-- Procedure structure for deleteMenu
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `deleteMenu`;
+delimiter ;;
+CREATE PROCEDURE `deleteMenu`(IN did char(255),OUT recode int)
+BEGIN
+  DECLARE ecount int;
+	DECLARE puuid char(255);
+	DECLARE ccount int;
+	set recode=0;
+	SELECT COUNT(*) INTO ccount from pt_menu WHERE parent_uuid=did;
+	IF ccount=0 THEN
+		DELETE FROM pt_menu WHERE menu_uuid=did;
+		SELECT ROW_COUNT() INTO recode;
+	END IF;
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for deleteOrgan
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `deleteOrgan`;
+delimiter ;;
+CREATE PROCEDURE `deleteOrgan`(IN did char(255),OUT recode int)
+BEGIN
+  DECLARE ecount int;
+	DECLARE puuid char(255);
+	DECLARE ccount int;
+	set recode=0;
+	SELECT COUNT(*) INTO ccount from pt_organ WHERE parent_uuid=did;
+	IF ccount=0 THEN
+		DELETE FROM pt_organ WHERE organ_uuid=did;
+		SELECT ROW_COUNT() INTO recode;
+	END IF;
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for deleteRes
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `deleteRes`;
+delimiter ;;
+CREATE PROCEDURE `deleteRes`(IN did char(255),OUT recode int)
+BEGIN
+  DECLARE ecount int;
+	DECLARE puuid char(255);
+	DECLARE ccount int;
+	set recode=0;
+	SELECT COUNT(*) INTO ccount from pt_res WHERE parent_uuid=did;
+	IF ccount=0 THEN
+		DELETE FROM pt_res WHERE res_uuid=did;
+		SELECT ROW_COUNT() INTO recode;
+	END IF;
+END
+;;
+delimiter ;
 
 SET FOREIGN_KEY_CHECKS = 1;
